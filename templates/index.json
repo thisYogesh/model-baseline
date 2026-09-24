@@ -273,10 +273,298 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "editorial_brand_story": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/screenshot-2026-05-28-at-8-01-39-am-1-mobile-9916858.png",
+            "image_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 30
+          },
+          "blocks": {
+            "heading_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Messy Life. Kind Ingredients. Powerful Clean.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "3.5rem",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "uppercase",
+                "text_color": "#FCF9F5",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "body_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>You aim to hit 10K steps daily. You drink protein smoothies. You upgraded to wood cutting boards. Wellness is already in your routine. Dropps is the next obvious choice. That means formulas built from biobased ingredients \u2013 no harsh chemicals, no shortcuts, no fine print. And it means enzyme power that handles all of life\u2019s best messes: lifting coffee stains, eliminating workout odor, powering through grease, and banishing moldy lunchbox smell.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "none",
+                "text_color": "#FFFFFF",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_text",
+            "body_text"
+          ]
+        }
+      },
+      "settings": {
+        "media_position": "left",
+        "media_width": "medium",
+        "media_height": "auto",
+        "section_width": "full-width",
+        "background_color": "#14495B",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "certifications_Rk3xPa": {
+      "type": "section",
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "space-between",
+        "gap": 40,
+        "section_width": "page-width",
+        "section_height": "large",
+        "background_color": "#231F20",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      },
+      "blocks": {
+        "heading_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We didn't need a badge to do the right thing. But we're glad to have them.</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "type_preset": "custom",
+            "font": "var(--font-heading--family)",
+            "font_size": "3.5rem",
+            "line_height": "tight",
+            "letter_spacing": "normal",
+            "case": "uppercase",
+            "text_color": "#F1E8DA"
+          },
+          "blocks": {}
+        },
+        "bottom_row": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "gap": 40,
+            "width": "fill"
+          },
+          "blocks": {
+            "body_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Dropps is held to a real standard for how we treat people and the planet. We're cruelty-free, third-party checked, and leave the cute bunnies out of it.</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1.25rem",
+                "line_height": "normal",
+                "letter_spacing": "tight",
+                "case": "none",
+                "text_color": "#F1E8DA"
+              },
+              "blocks": {}
+            },
+            "badges_group": {
+              "type": "group",
+              "settings": {
+                "content_direction": "row",
+                "horizontal_alignment": "center",
+                "vertical_alignment": "flex-end",
+                "gap": 48,
+                "width": "fit-content"
+              },
+              "blocks": {
+                "badge_bcorp_group": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "center",
+                    "gap": 12,
+                    "width": "fit-content"
+                  },
+                  "blocks": {
+                    "badge_bcorp_image": {
+                      "type": "image",
+                      "settings": {
+                        "image_ratio": "adapt",
+                        "width": "fit-content",
+                        "width_mobile": "fit-content"
+                      },
+                      "blocks": {}
+                    },
+                    "badge_bcorp_caption": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>B Corp Certified</p>",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-subheading--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "text_color": "#F1E8DA"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "badge_bcorp_image",
+                    "badge_bcorp_caption"
+                  ]
+                },
+                "badge_epa_group": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "center",
+                    "gap": 12,
+                    "width": "fit-content"
+                  },
+                  "blocks": {
+                    "badge_epa_image": {
+                      "type": "image",
+                      "settings": {
+                        "image": "shopify://shop_images/epa-badge-white-2-mobile-5978314.png",
+                        "image_ratio": "adapt",
+                        "width": "fit-content",
+                        "width_mobile": "fit-content"
+                      },
+                      "blocks": {}
+                    },
+                    "badge_epa_caption": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>EPA Safer Choice</p>",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-subheading--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "text_color": "#F1E8DA"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "badge_epa_image",
+                    "badge_epa_caption"
+                  ]
+                },
+                "badge_bunny_group": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "center",
+                    "gap": 12,
+                    "width": "fit-content"
+                  },
+                  "blocks": {
+                    "badge_bunny_image": {
+                      "type": "image",
+                      "settings": {
+                        "image": "shopify://shop_images/img-3664-2-1-mobile-5978318.png",
+                        "image_ratio": "adapt",
+                        "width": "fit-content",
+                        "width_mobile": "fit-content"
+                      },
+                      "blocks": {}
+                    },
+                    "badge_bunny_caption": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Leaping Bunny</p>",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-subheading--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "text_color": "#F1E8DA"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "badge_bunny_image",
+                    "badge_bunny_caption"
+                  ]
+                }
+              },
+              "block_order": [
+                "badge_bcorp_group",
+                "badge_epa_group",
+                "badge_bunny_group"
+              ]
+            }
+          },
+          "block_order": [
+            "body_text",
+            "badges_group"
+          ]
+        }
+      },
+      "block_order": [
+        "heading_text",
+        "bottom_row"
+      ]
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "editorial_brand_story",
+    "certifications_Rk3xPa"
   ]
 }
