@@ -12,7 +12,7 @@
   assign icon_color = block.settings.icon_color
 %}
 
-<div class="testimonial-slide" {{ block.shopify_attributes }}>
+<div class="testimonial-slide" ref="slides[]" data-carousel-card {{ block.shopify_attributes }}>
   {%- comment -%} Mobile image — visible only on mobile {%- endcomment -%}
   <div class="testimonial-slide__mobile-image">
     {%- if image != blank -%}
