@@ -410,11 +410,133 @@
         "padding-block-start": 0,
         "padding-block-end": 32
       }
+    },
+    "faq": {
+      "type": "section",
+      "blocks": {
+        "heading_group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 8,
+            "width": "fill"
+          },
+          "blocks": {
+            "faq_heading": {
+              "type": "text",
+              "settings": {
+                "text": "<h2>Good Questions</h2>",
+                "type_preset": "h2",
+                "case": "upper",
+                "alignment": "center",
+                "font": "var(--font-heading--family)",
+                "text_color": "#231F20"
+              },
+              "blocks": {}
+            },
+            "faq_subtitle": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Answers to the things people actually want to know.</p>",
+                "type_preset": "paragraph",
+                "alignment": "center",
+                "font": "var(--font-body--family)",
+                "text_color": "#231F20"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "faq_heading",
+            "faq_subtitle"
+          ]
+        },
+        "faq_accordion": {
+          "type": "accordion",
+          "settings": {
+            "icon": "plus",
+            "dividers": true,
+            "divider_color": "#231F20",
+            "type_preset": "paragraph",
+            "border": "none"
+          },
+          "blocks": {
+            "faq_row_1": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What's the packaging made of?"
+              },
+              "blocks": {}
+            },
+            "faq_row_2": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What does Dropps mean by \"safer ingredients\"?"
+              },
+              "blocks": {}
+            },
+            "faq_row_3": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Is the pod wrapper plastic?"
+              },
+              "blocks": {}
+            },
+            "faq_row_4": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Does it clean as well as conventional detergents"
+              },
+              "blocks": {}
+            },
+            "faq_row_5": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Are Dropps pods septic safe?"
+              },
+              "blocks": {}
+            },
+            "faq_row_6": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Can I use Dropps in cold water and HE machines?"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "faq_row_1",
+            "faq_row_2",
+            "faq_row_3",
+            "faq_row_4",
+            "faq_row_5",
+            "faq_row_6"
+          ]
+        }
+      },
+      "block_order": [
+        "heading_group",
+        "faq_accordion"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 18,
+        "section_width": "page-width",
+        "background_media": "none",
+        "background_color": "#E9EA6B",
+        "padding-block-start": 48,
+        "padding-block-end": 60
+      }
     }
   },
   "order": [
     "section",
     "shop_categories",
-    "main"
+    "main",
+    "faq"
   ]
 }
