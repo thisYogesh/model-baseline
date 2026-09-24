@@ -1,0 +1,480 @@
+{%- liquid
+  assign bg_color = section.settings.background_color
+  assign heading = section.settings.heading
+  assign format_label = section.settings.format_label
+  assign footnote = section.settings.footnote
+-%}
+
+<section
+  class="how-we-compare"
+  style="--section-padding-top: {{ section.settings['padding-block-start'] }}px; --section-padding-bottom: {{ section.settings['padding-block-end'] }}px;{% if bg_color != blank %} --how-we-compare-bg: {{ bg_color }};{% endif %}"
+>
+  <div class="how-we-compare__inner">
+    {%- if heading != blank -%}
+      <div class="page-width">
+        <h2 class="how-we-compare__heading">{{ heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="page-width">
+      <div class="how-we-compare__table-scroll">
+        <table class="how-we-compare__table">
+          <thead>
+            <tr>
+              <th class="how-we-compare__label-cell how-we-compare__logo-header"></th>
+              {%- for block in section.blocks -%}
+                <th
+                  class="how-we-compare__brand-cell{% if block.settings.is_highlighted %} how-we-compare__cell--highlight how-we-compare__cell--highlight-top{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="how-we-compare__logo-container">
+                    {%- if block.settings.logo_asset != blank -%}
+                      {%- assign logo_opacity_val = block.settings.logo_opacity | divided_by: 100.0 -%}
+                      <img
+                        src="{{ block.settings.logo_asset | asset_url }}"
+                        alt="{{ block.settings.brand_name }}"
+                        loading="lazy"
+                        {% if logo_opacity_val < 1 %}style="opacity: {{ logo_opacity_val }};"{% endif %}
+                      >
+                    {%- elsif block.settings.logo != blank -%}
+                      {%- assign logo_opacity_val = block.settings.logo_opacity | divided_by: 100.0 -%}
+                      {{
+                        block.settings.logo
+                        | image_url: width: 200
+                        | image_tag:
+                          alt: block.settings.brand_name,
+                          loading: 'lazy',
+                          style: 'opacity:' | append: logo_opacity_val | append: ';'
+                      }}
+                    {%- endif -%}
+                  </div>
+                </th>
+              {%- endfor -%}
+            </tr>
+          </thead>
+          <tbody>
+            {%- comment -%} Format row {%- endcomment -%}
+            <tr>
+              <td class="how-we-compare__label-cell">{{ format_label }}</td>
+              {%- for block in section.blocks -%}
+                <td class="how-we-compare__data-cell how-we-compare__format-cell{% if block.settings.is_highlighted %} how-we-compare__cell--highlight{% endif %}">
+                  {{ block.settings.format_text }}
+                </td>
+              {%- endfor -%}
+            </tr>
+
+            {%- comment -%} Feature rows 1-7 {%- endcomment -%}
+            {%- for i in (1..7) -%}
+              {%- assign label_key = 'feature_' | append: i | append: '_label' -%}
+              {%- assign feature_key = 'feature_' | append: i -%}
+              {%- assign is_last_row = false -%}
+              {%- if i == 7 -%}
+                {%- assign is_last_row = true -%}
+              {%- endif -%}
+              <tr>
+                <td class="how-we-compare__label-cell">{{ section.settings[label_key] }}</td>
+                {%- for block in section.blocks -%}
+                  <td class="how-we-compare__data-cell{% if block.settings.is_highlighted %} how-we-compare__cell--highlight{% if is_last_row %} how-we-compare__cell--highlight-bottom{% endif %}{% endif %}">
+                    {%- if block.settings[feature_key] -%}
+                      <img src="{{ 'icon-check-large-4.svg' | asset_url }}" alt="Yes" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+                    {%- else -%}
+                      <img src="{{ 'icon-close-large.svg' | asset_url }}" alt="No" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+                    {%- endif -%}
+                  </td>
+                {%- endfor -%}
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+
+      {%- if footnote != blank -%}
+        <p class="how-we-compare__footnote">{{ footnote }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .how-we-compare {
+    padding: var(--section-padding-top, 48px) 0 var(--section-padding-bottom, 48px) 0;
+    background-color: var(--how-we-compare-bg, transparent);
+  }
+
+  .how-we-compare__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .how-we-compare__inner {
+      gap: 60px;
+    }
+  }
+
+  .how-we-compare__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #231F20;
+    margin: 0;
+    padding-top: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .how-we-compare__heading {
+      font-size: 56px;
+      line-height: 56px;
+    }
+  }
+
+  .how-we-compare__table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .how-we-compare__table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    min-width: 900px;
+  }
+
+  .how-we-compare__table th,
+  .how-we-compare__table td {
+    padding: 24px 0;
+    border-bottom: 1px solid #231F20;
+    vertical-align: middle;
+    text-align: center;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.14px;
+    font-weight: 500;
+    color: #231F20;
+  }
+
+  .how-we-compare__label-cell {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background-color: var(--how-we-compare-bg, #FCF9F5);
+    min-width: 136px;
+    padding-right: 10px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .how-we-compare__label-cell {
+      min-width: 197px;
+    }
+  }
+
+  .how-we-compare__brand-cell,
+  .how-we-compare__data-cell {
+    width: 115px;
+    min-width: 108px;
+  }
+
+  /* Vertical separator borders on non-highlighted competitor cells */
+  .how-we-compare__brand-cell:not(.how-we-compare__cell--highlight),
+  .how-we-compare__data-cell:not(.how-we-compare__cell--highlight) {
+    border-left: 1px solid #231F20;
+  }
+
+  /* Highlighted column */
+  .how-we-compare__cell--highlight {
+    background-color: #9BD7D7;
+  }
+
+  .how-we-compare__cell--highlight-top {
+    border-radius: 2px 2px 0 0;
+  }
+
+  .how-we-compare__cell--highlight-bottom {
+    border-radius: 0 0 2px 2px;
+  }
+
+  .how-we-compare__logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 115px;
+    height: 80px;
+    margin: 0 auto;
+  }
+
+  .how-we-compare__logo-container img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  .how-we-compare__format-cell {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0;
+  }
+
+  .how-we-compare__logo-header {
+    border-bottom: 0;
+  }
+
+  .how-we-compare__footnote {
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    color: #231F20;
+    padding: 32px 0;
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "How We Compare",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How We Compare"
+    },
+    {
+      "type": "text",
+      "id": "format_label",
+      "label": "Format row label",
+      "default": "Format"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_label",
+      "label": "Feature 1 label",
+      "default": "Superior Cleaning 1"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_label",
+      "label": "Feature 2 label",
+      "default": "Gentle for both eczema and psoriasis*"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_label",
+      "label": "Feature 3 label",
+      "default": "USDA Certified Biobased & Leaping Bunny Certified"
+    },
+    {
+      "type": "text",
+      "id": "feature_4_label",
+      "label": "Feature 4 label",
+      "default": "Certified B Corp"
+    },
+    {
+      "type": "text",
+      "id": "feature_5_label",
+      "label": "Feature 5 label",
+      "default": "No skin contact during handling"
+    },
+    {
+      "type": "text",
+      "id": "feature_6_label",
+      "label": "Feature 6 label",
+      "default": "Curbside-recyclable paperboard & packaging"
+    },
+    {
+      "type": "text",
+      "id": "feature_7_label",
+      "label": "Feature 7 label",
+      "default": "Formulated & manufactured in the USA"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "competitor",
+      "name": "Competitor",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Brand"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "logo_asset",
+          "label": "Logo SVG filename",
+          "info": "Enter asset filename like dropps-logo.svg. Overrides logo image if set."
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand name"
+        },
+        {
+          "type": "text",
+          "id": "format_text",
+          "label": "Format text"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_highlighted",
+          "label": "Highlight column",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "logo_opacity",
+          "label": "Logo opacity",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Features"
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_1",
+          "label": "Superior Cleaning",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_2",
+          "label": "Gentle for eczema & psoriasis",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_3",
+          "label": "USDA Biobased & Leaping Bunny",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_4",
+          "label": "Certified B Corp",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_5",
+          "label": "No skin contact",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_6",
+          "label": "Curbside-recyclable packaging",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_7",
+          "label": "Made in the USA",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How We Compare",
+      "blocks": [
+        {
+          "type": "competitor",
+          "settings": {
+            "logo_asset": "dropps-logo.svg",
+            "brand_name": "Dropps",
+            "format_text": "Liquid Pod",
+            "is_highlighted": true,
+            "logo_opacity": 100,
+            "feature_1": true,
+            "feature_2": true,
+            "feature_3": true,
+            "feature_4": true,
+            "feature_5": true,
+            "feature_6": true,
+            "feature_7": true
+          }
+        },
+        {
+          "type": "competitor",
+          "settings": {
+            "brand_name": "Competitor 2",
+            "format_text": "Tablet",
+            "is_highlighted": false,
+            "logo_opacity": 100,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": true,
+            "feature_4": true,
+            "feature_5": false,
+            "feature_6": false,
+            "feature_7": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

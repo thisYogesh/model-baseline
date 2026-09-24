@@ -272,6 +272,147 @@
         "padding-block-end": 0
       }
     },
+    "how_we_compare_xK7mPq": {
+      "type": "how-we-compare",
+      "settings": {
+        "heading": "How We Compare",
+        "format_label": "Format",
+        "footnote": "Comparison based on publicly available product information and third-party certifications as of publication date. Certification and manufacturing data sourced from brand websites, June 2026.",
+        "background_color": "#FCF9F5",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "competitor_dropps": {
+          "type": "competitor",
+          "settings": {
+            "logo_asset": "dropps-logo.svg",
+            "brand_name": "Dropps",
+            "format_text": "Liquid Pod",
+            "is_highlighted": true,
+            "logo_opacity": 100,
+            "feature_1": true,
+            "feature_2": true,
+            "feature_3": true,
+            "feature_4": true,
+            "feature_5": true,
+            "feature_6": true,
+            "feature_7": true
+          }
+        },
+        "competitor_blueland": {
+          "type": "competitor",
+          "settings": {
+            "logo_asset": "logo-container.svg",
+            "brand_name": "Blueland",
+            "format_text": "Tablet",
+            "is_highlighted": false,
+            "logo_opacity": 100,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": true,
+            "feature_4": true,
+            "feature_5": false,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_seventh_gen": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/seventh-generation-1-mobile-52628908.png",
+            "brand_name": "Seventh Generation",
+            "format_text": "Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 50,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": true,
+            "feature_5": false,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_mollys": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/ms-logo-transparent-220x-2x-bfc196b7-d70e-4285-b0be-b06ec38c233b-1-mobile-52628920.png",
+            "brand_name": "Molly's Suds",
+            "format_text": "Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 40,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": true,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_cascade": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/logo-1-mobile-52628932.png",
+            "brand_name": "Cascade",
+            "format_text": "Liquid & Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 80,
+            "feature_1": true,
+            "feature_2": true,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": true,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_finish": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/main-logo-1-mobile-52628944.png",
+            "brand_name": "Finish",
+            "format_text": "Liquid & Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 70,
+            "feature_1": true,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": false,
+            "feature_6": true,
+            "feature_7": false
+          }
+        },
+        "competitor_method": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/61x-sktjoal-ac-sf462-108-1-mobile-52628956.png",
+            "brand_name": "Method",
+            "format_text": "Tablet",
+            "is_highlighted": false,
+            "logo_opacity": 80,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": false,
+            "feature_6": true,
+            "feature_7": false
+          }
+        }
+      },
+      "block_order": [
+        "competitor_dropps",
+        "competitor_blueland",
+        "competitor_seventh_gen",
+        "competitor_mollys",
+        "competitor_cascade",
+        "competitor_finish",
+        "competitor_method"
+      ]
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -410,6 +551,7 @@
   },
   "order": [
     "main",
+    "how_we_compare_xK7mPq",
     "product_recommendations_qggXJq"
   ]
 }
