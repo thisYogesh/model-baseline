@@ -273,10 +273,92 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "editorial_brand_story": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/screenshot-2026-05-28-at-8-01-39-am-1-mobile-9916858.png",
+            "image_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 30
+          },
+          "blocks": {
+            "heading_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Messy Life. Kind Ingredients. Powerful Clean.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "3.5rem",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "uppercase",
+                "text_color": "#FCF9F5",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "body_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>You aim to hit 10K steps daily. You drink protein smoothies. You upgraded to wood cutting boards. Wellness is already in your routine. Dropps is the next obvious choice. That means formulas built from biobased ingredients \u2013 no harsh chemicals, no shortcuts, no fine print. And it means enzyme power that handles all of life\u2019s best messes: lifting coffee stains, eliminating workout odor, powering through grease, and banishing moldy lunchbox smell.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "none",
+                "text_color": "#FFFFFF",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_text",
+            "body_text"
+          ]
+        }
+      },
+      "settings": {
+        "media_position": "left",
+        "media_width": "medium",
+        "media_height": "auto",
+        "section_width": "full-width",
+        "background_color": "#14495B",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "editorial_brand_story"
   ]
 }
