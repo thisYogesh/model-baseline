@@ -420,6 +420,48 @@
         "competitor_method"
       ]
     },
+    "clean_ingredients_bar_rT4mWq": {
+      "type": "section",
+      "blocks": {
+        "ingredients_content_xY7zAb": {
+          "type": "_clean-ingredients-bar",
+          "settings": {
+            "heading": "Our Formula",
+            "background_color": "#E9EA6B",
+            "cta_label": "View all ingredients",
+            "row_1_label": "Biobased",
+            "row_1_description": "USDA Certified Biobased with 58% derived from renewable resources.",
+            "row_2_label": "Pod Film",
+            "row_2_description": "Water-soluble PVOH that dissolves and biodegrades.",
+            "row_3_label": "Made With",
+            "row_3_description": "Five specialized enzymes and three surfactants, each with a dirty job.",
+            "row_4_label": "Never Made With",
+            "row_4_description": "No Phosphates\nNo Dyes\nNo Chlorine\nNo Parabens\nNo SLS (Sodium Lauryl Sulfate)",
+            "badge_1_label": "B Corp Certified",
+            "badge_2_image": "shopify://shop_images/img-3664-2-1-mobile-5978318.png",
+            "badge_2_label": "Leaping Bunny",
+            "badge_3_image": "shopify://shop_images/epa-badge-white-2-mobile-5978314.png",
+            "badge_3_label": "EPA Safer Choice"
+          }
+        }
+      },
+      "block_order": [
+        "ingredients_content_xY7zAb"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "background_media": "image",
+        "background_image": "shopify://shop_images/clean-ingredients-bar-mobile-52628791.jpg",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -559,6 +601,7 @@
   "order": [
     "main",
     "how_we_compare_xK7mPq",
+    "clean_ingredients_bar_rT4mWq",
     "product_recommendations_qggXJq"
   ]
 }

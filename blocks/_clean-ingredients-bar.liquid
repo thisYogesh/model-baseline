@@ -1,0 +1,446 @@
+<div class="clean-ingredients-bar" {{ block.shopify_attributes }} style="--cib-bg: {{ block.settings.background_color }};">
+  <div class="clean-ingredients-bar__card">
+    <h2 class="clean-ingredients-bar__heading">{{ block.settings.heading }}</h2>
+
+    <div class="clean-ingredients-bar__rows">
+      {%- if block.settings.row_1_label != blank -%}
+        <div class="clean-ingredients-bar__row">
+          <span class="clean-ingredients-bar__row-label">{{ block.settings.row_1_label }}</span>
+          <span class="clean-ingredients-bar__row-desc">{{ block.settings.row_1_description }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.row_2_label != blank -%}
+        <div class="clean-ingredients-bar__row">
+          <span class="clean-ingredients-bar__row-label">{{ block.settings.row_2_label }}</span>
+          <span class="clean-ingredients-bar__row-desc">{{ block.settings.row_2_description }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.row_3_label != blank -%}
+        <div class="clean-ingredients-bar__row">
+          <span class="clean-ingredients-bar__row-label">{{ block.settings.row_3_label }}</span>
+          <span class="clean-ingredients-bar__row-desc">{{ block.settings.row_3_description }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.row_4_label != blank -%}
+        <div class="clean-ingredients-bar__row">
+          <span class="clean-ingredients-bar__row-label">{{ block.settings.row_4_label }}</span>
+          <span class="clean-ingredients-bar__row-desc">{{ block.settings.row_4_description | newline_to_br }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if block.settings.cta_label != blank -%}
+      <a
+        class="clean-ingredients-bar__cta"
+        {%- if block.settings.cta_url != blank %}
+          href="{{ block.settings.cta_url }}"
+        {%- endif %}
+      >
+        {{ block.settings.cta_label }}
+      </a>
+    {%- endif -%}
+
+    <div class="clean-ingredients-bar__badges">
+      {%- if block.settings.badge_1_label != blank -%}
+        <div class="clean-ingredients-bar__badge">
+          <div class="clean-ingredients-bar__badge-img-wrap">
+            {%- if block.settings.badge_1_image != blank -%}
+              {{
+                block.settings.badge_1_image
+                | image_url: width: 144
+                | image_tag:
+                  class: 'clean-ingredients-bar__badge-img',
+                  loading: 'lazy',
+                  widths: '72,144',
+                  alt: block.settings.badge_1_label
+              }}
+            {%- else -%}
+              <img
+                src="{{ 'wrapper-3.svg' | asset_url }}"
+                alt="{{ block.settings.badge_1_label }}"
+                width="72"
+                height="72"
+                class="clean-ingredients-bar__badge-img"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          <span class="clean-ingredients-bar__badge-label">{{ block.settings.badge_1_label }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.badge_2_label != blank -%}
+        <div class="clean-ingredients-bar__badge-divider"></div>
+        <div class="clean-ingredients-bar__badge">
+          <div class="clean-ingredients-bar__badge-img-wrap">
+            {%- if block.settings.badge_2_image != blank -%}
+              {{
+                block.settings.badge_2_image
+                | image_url: width: 144
+                | image_tag:
+                  class: 'clean-ingredients-bar__badge-img',
+                  loading: 'lazy',
+                  widths: '72,144',
+                  alt: block.settings.badge_2_label
+              }}
+            {%- else -%}
+              <img
+                src="{{ 'wrapper.svg' | asset_url }}"
+                alt="{{ block.settings.badge_2_label }}"
+                width="72"
+                height="72"
+                class="clean-ingredients-bar__badge-img"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          <span class="clean-ingredients-bar__badge-label">{{ block.settings.badge_2_label }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if block.settings.badge_3_label != blank -%}
+        <div class="clean-ingredients-bar__badge-divider"></div>
+        <div class="clean-ingredients-bar__badge">
+          <div class="clean-ingredients-bar__badge-img-wrap">
+            {%- if block.settings.badge_3_image != blank -%}
+              {{
+                block.settings.badge_3_image
+                | image_url: width: 144
+                | image_tag:
+                  class: 'clean-ingredients-bar__badge-img',
+                  loading: 'lazy',
+                  widths: '72,144',
+                  alt: block.settings.badge_3_label
+              }}
+            {%- else -%}
+              <img
+                src="{{ 'wrapper-4.svg' | asset_url }}"
+                alt="{{ block.settings.badge_3_label }}"
+                width="41"
+                height="72"
+                class="clean-ingredients-bar__badge-img"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          <span class="clean-ingredients-bar__badge-label">{{ block.settings.badge_3_label }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .clean-ingredients-bar__card {
+    background-color: var(--cib-bg, #E9EA6B);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .clean-ingredients-bar__heading {
+    font-family: var(--font-heading--family);
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.2px;
+    font-weight: 400;
+    color: #231F20;
+    margin: 0;
+    text-align: center;
+    padding-block-start: 24px;
+  }
+
+  .clean-ingredients-bar__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    padding-block-start: 24px;
+  }
+
+  .clean-ingredients-bar__row {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-block-end: 2px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.15);
+  }
+
+  .clean-ingredients-bar__row-label {
+    flex-shrink: 0;
+    width: 90px;
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #231F20;
+  }
+
+  .clean-ingredients-bar__row-desc {
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #231F20;
+  }
+
+  .clean-ingredients-bar__cta {
+    display: inline-block;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+    color: #231F20;
+    text-decoration: underline;
+    padding-block: 12px;
+  }
+
+  .clean-ingredients-bar__badges {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .clean-ingredients-bar__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .clean-ingredients-bar__badge-img-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+  }
+
+  .clean-ingredients-bar__badge-img {
+    max-height: 72px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .clean-ingredients-bar__badge-label {
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12px;
+    color: #231F20;
+    text-align: center;
+  }
+
+  .clean-ingredients-bar__badge-divider {
+    width: 1px;
+    height: 72px;
+    background-color: #231F20;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .clean-ingredients-bar__card {
+      display: grid;
+      grid-template-areas:
+        "heading rows"
+        ".       rows"
+        "cta     badges";
+      grid-template-columns: minmax(200px, 1fr) minmax(320px, 1.4fr);
+      grid-template-rows: auto 1fr auto;
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 0 32px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .clean-ingredients-bar__heading {
+      grid-area: heading;
+      font-size: 56px;
+      line-height: 56px;
+      letter-spacing: -1.68px;
+      text-align: start;
+      padding-block-start: 0;
+      align-self: start;
+    }
+
+    .clean-ingredients-bar__rows {
+      grid-area: rows;
+      padding-block-start: 0;
+    }
+
+    .clean-ingredients-bar__row {
+      gap: 24px;
+    }
+
+    .clean-ingredients-bar__row-label {
+      width: 198px;
+    }
+
+    .clean-ingredients-bar__cta {
+      grid-area: cta;
+      align-self: end;
+    }
+
+    .clean-ingredients-bar__badges {
+      grid-area: badges;
+      justify-content: flex-start;
+      gap: 30px;
+    }
+
+    .clean-ingredients-bar__badge-divider {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Clean ingredients bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Formula"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#E9EA6B"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "View all ingredients"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 1"
+    },
+    {
+      "type": "text",
+      "id": "row_1_label",
+      "label": "Label",
+      "default": "Biobased"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_description",
+      "label": "Description",
+      "default": "USDA Certified Biobased with 58% derived from renewable resources."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 2"
+    },
+    {
+      "type": "text",
+      "id": "row_2_label",
+      "label": "Label",
+      "default": "Pod Film"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_description",
+      "label": "Description",
+      "default": "Water-soluble PVOH that dissolves and biodegrades."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 3"
+    },
+    {
+      "type": "text",
+      "id": "row_3_label",
+      "label": "Label",
+      "default": "Made With"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_description",
+      "label": "Description",
+      "default": "Five specialized enzymes and three surfactants, each with a dirty job."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 4"
+    },
+    {
+      "type": "text",
+      "id": "row_4_label",
+      "label": "Label",
+      "default": "Never Made With"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_description",
+      "label": "Description",
+      "default": "No Phosphates\nNo Dyes\nNo Chlorine\nNo Parabens\nNo SLS (Sodium Lauryl Sulfate)"
+    },
+    {
+      "type": "header",
+      "content": "Badge 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_1_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_label",
+      "label": "Badge label",
+      "default": "B Corp Certified"
+    },
+    {
+      "type": "header",
+      "content": "Badge 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_2_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_label",
+      "label": "Badge label",
+      "default": "Leaping Bunny"
+    },
+    {
+      "type": "header",
+      "content": "Badge 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_3_image",
+      "label": "Badge image"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_label",
+      "label": "Badge label",
+      "default": "EPA Safer Choice"
+    }
+  ]
+}
+{% endschema %}
