@@ -466,7 +466,7 @@
       "type": "section",
       "blocks": {
         "testimonial_slide_aB3cDe": {
-          "type": "testimonial-slide",
+          "type": "_testimonial-slide",
           "settings": {
             "heading": "No Rinse, No Problem",
             "quote_text": "\"I scrape plates but rarely rinse them, and I am a three course dinner kind of home cook. I get baked on mess and LOTS of dirty pots and pans. I have been very satisfied with the cleaning power of this product.\"",

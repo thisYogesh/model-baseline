@@ -1,0 +1,462 @@
+{% liquid
+  assign heading = block.settings.heading
+  assign quote_text = block.settings.quote_text
+  assign reviewer_name = block.settings.reviewer_name
+  assign product_name = block.settings.product_name
+  assign product_url = block.settings.product_url
+  assign image = block.settings.image
+  assign image_decorative = block.settings.image_decorative
+  assign heading_color = block.settings.heading_color
+  assign body_color = block.settings.body_color
+  assign reviewer_color = block.settings.reviewer_color
+  assign icon_color = block.settings.icon_color
+%}
+
+<div class="testimonial-slide" {{ block.shopify_attributes }}>
+  {%- comment -%} Mobile image — visible only on mobile {%- endcomment -%}
+  <div class="testimonial-slide__mobile-image">
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 610
+        | image_tag:
+          sizes: '(min-width: 750px) 0px, 305px',
+          widths: '305,450,610',
+          class: 'testimonial-slide__img',
+          loading: 'lazy',
+          alt: product_name
+      }}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'testimonial-slide__img' }}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Desktop left decorative image {%- endcomment -%}
+  <div class="testimonial-slide__image-left">
+    {%- if image_decorative != blank -%}
+      {{
+        image_decorative
+        | image_url: width: 1160
+        | image_tag:
+          sizes: '(min-width: 750px) 38vw, 0px',
+          widths: '400,580,750,1000,1160',
+          class: 'testimonial-slide__img',
+          loading: 'lazy',
+          alt: heading
+      }}
+    {%- else -%}
+      {{ 'product-apparel-2' | placeholder_svg_tag: 'testimonial-slide__img' }}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Center text content {%- endcomment -%}
+  <div class="testimonial-slide__content">
+    <img
+      src="{{ 'ratings.svg' | asset_url }}"
+      alt="5 star rating"
+      width="74"
+      height="14"
+      loading="lazy"
+      class="testimonial-slide__ratings"
+    >
+
+    <div class="testimonial-slide__text-lockup">
+      {%- if heading != blank -%}
+        <h2
+          class="testimonial-slide__heading"
+          style="color: {{ heading_color }};"
+        >
+          {{- heading -}}
+        </h2>
+      {%- endif -%}
+
+      {%- if quote_text != blank -%}
+        <p
+          class="testimonial-slide__quote"
+          style="color: {{ body_color }};"
+        >
+          {{- quote_text -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="testimonial-slide__content-stack">
+      <div class="testimonial-slide__reviewer-row">
+        <svg class="testimonial-slide__check-icon" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="7.25" stroke="{{ icon_color }}" stroke-width="1.5" fill="none"/>
+          <path d="M7.5 10.5L9.5 12.5L13.5 8.5" stroke="{{ icon_color }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        {%- if reviewer_name != blank -%}
+          <span
+            class="testimonial-slide__reviewer-name"
+            style="color: {{ reviewer_color }};"
+          >
+            {{- reviewer_name -}}
+          </span>
+        {%- endif -%}
+      </div>
+
+      {%- if product_name != blank -%}
+        {%- if product_url != blank -%}
+          <a
+            href="{{ product_url }}"
+            class="testimonial-slide__product-link"
+            style="color: {{ reviewer_color }};"
+          >
+            {{- product_name -}}
+          </a>
+        {%- else -%}
+          <span
+            class="testimonial-slide__product-link"
+            style="color: {{ reviewer_color }};"
+          >
+            {{- product_name -}}
+          </span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    <div class="testimonial-slide__dots" aria-hidden="true">
+      <span class="testimonial-slide__dot testimonial-slide__dot--inactive" style="background-color: {{ heading_color }};"></span>
+      <span class="testimonial-slide__dot testimonial-slide__dot--active" style="background-color: {{ heading_color }};"></span>
+      <span class="testimonial-slide__dot testimonial-slide__dot--inactive" style="background-color: {{ heading_color }};"></span>
+      <span class="testimonial-slide__dot testimonial-slide__dot--inactive" style="background-color: {{ heading_color }};"></span>
+    </div>
+  </div>
+
+  {%- comment -%} Desktop right product image {%- endcomment -%}
+  <div class="testimonial-slide__image-right">
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 1320
+        | image_tag:
+          sizes: '(min-width: 750px) 45vw, 0px',
+          widths: '400,656,900,1200,1320',
+          class: 'testimonial-slide__img',
+          loading: 'lazy',
+          alt: product_name
+      }}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'testimonial-slide__img' }}
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* ===========================
+     Testimonial Slide Block
+     Mobile-first
+     =========================== */
+
+  .testimonial-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 30px 38px 30px;
+    width: 100%;
+  }
+
+  /* --- Mobile image --- */
+  .testimonial-slide__mobile-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 305px;
+    height: 305px;
+    overflow: hidden;
+    margin-block-end: 30px;
+    flex-shrink: 0;
+  }
+
+  .testimonial-slide__mobile-image .testimonial-slide__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* --- Desktop-only image columns hidden on mobile --- */
+  .testimonial-slide__image-left,
+  .testimonial-slide__image-right {
+    display: none;
+  }
+
+  /* --- Center content --- */
+  .testimonial-slide__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .testimonial-slide__ratings {
+    width: 74px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* --- Text lockup --- */
+  .testimonial-slide__text-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .testimonial-slide__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.2px;
+    text-align: center;
+    margin: 0;
+  }
+
+  .testimonial-slide__quote {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* --- Content stack (reviewer + product) --- */
+  .testimonial-slide__content-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .testimonial-slide__reviewer-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .testimonial-slide__check-icon {
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+  }
+
+  .testimonial-slide__reviewer-name {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .testimonial-slide__product-link {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.14px;
+    text-decoration: underline;
+    text-align: center;
+    text-underline-offset: 2px;
+  }
+
+  a.testimonial-slide__product-link:hover {
+    opacity: 0.8;
+  }
+
+  /* --- Carousel dots --- */
+  .testimonial-slide__dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+  }
+
+  .testimonial-slide__dot {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .testimonial-slide__dot--inactive {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .testimonial-slide__dot--active {
+    width: 18px;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  /* ===========================
+     Desktop (750px+)
+     =========================== */
+  @media screen and (min-width: 750px) {
+    .testimonial-slide {
+      display: grid;
+      grid-template-columns: 1fr minmax(0, 500px) 1fr;
+      padding: 0;
+      min-height: 624px;
+    }
+
+    /* Hide mobile image on desktop */
+    .testimonial-slide__mobile-image {
+      display: none;
+    }
+
+    /* Show desktop image columns */
+    .testimonial-slide__image-left,
+    .testimonial-slide__image-right {
+      display: block;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .testimonial-slide__image-left .testimonial-slide__img,
+    .testimonial-slide__image-right .testimonial-slide__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Center content in grid */
+    .testimonial-slide__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    /* Desktop text-lockup gap is 24px */
+    .testimonial-slide__text-lockup {
+      gap: 24px;
+    }
+
+    .testimonial-slide__heading {
+      font-size: 56px;
+      line-height: 56px;
+      letter-spacing: -1.68px;
+    }
+
+    /* Desktop carousel dots */
+    .testimonial-slide__dots {
+      gap: 8px;
+      padding: 16px 24px;
+    }
+
+    .testimonial-slide__dot--inactive {
+      width: 8px;
+      height: 8px;
+    }
+
+    .testimonial-slide__dot--active {
+      width: 24px;
+      height: 8px;
+      border-radius: 4px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Testimonial slide",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "No Rinse, No Problem"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_text",
+      "label": "Quote text",
+      "default": "\"I scrape plates but rarely rinse them, and I am a three course dinner kind of home cook. I get baked on mess and LOTS of dirty pots and pans. I have been very satisfied with the cleaning power of this product.\""
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name",
+      "label": "Reviewer name",
+      "default": "Kathy F"
+    },
+    {
+      "type": "text",
+      "id": "product_name",
+      "label": "Product name",
+      "default": "Stain & Odor Laundry Pods"
+    },
+    {
+      "type": "url",
+      "id": "product_url",
+      "label": "Product link"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_decorative",
+      "label": "Decorative image"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#F1E8DA"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#F1E8DA"
+    },
+    {
+      "type": "color",
+      "id": "reviewer_color",
+      "label": "Reviewer color",
+      "default": "#FCF9F5"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#E9EA6B"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial slide"
+    }
+  ]
+}
+{% endschema %}
