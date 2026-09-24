@@ -277,7 +277,14 @@
       "settings": {
         "heading": "How We Compare",
         "format_label": "Format",
-        "footnote": "Comparison based on publicly available product information and third-party certifications as of publication date. Certification and manufacturing data sourced from brand websites, June 2026.",
+        "feature_1_label": "Superior Cleaning 1",
+        "feature_2_label": "Gentle for both eczema and psoriasis*",
+        "feature_3_label": "USDA Certified Biobased & Leaping Bunny Certified",
+        "feature_4_label": "Certified B Corp",
+        "feature_5_label": "No skin contact during handling",
+        "feature_6_label": "Curbside-recyclable paperboard & packaging",
+        "feature_7_label": "Formulated & manufactured in the USA",
+        "footnote": "\u2020 Better stain removal on the most consumer-relevant stains. * Applies to Sensitive Skin and Free + Clear Unscented Laundry Detergents. Recognized by the National Eczema Association and National Psoriasis Foundation. \u00b6 Requires both USDA Certified Biobased Product and Leaping Bunny Cruelty-free certification to receive a checkmark. \u2021 Tablets, powders, and sheets require direct hand contact with formula at time of use. Dropps pod film dissolves completely in the wash cycle \u2014 formula never contacts skin during handling. \u00a7 Some competitor packaging is industrially compostable, which requires composting facility access \u2014 not curbside recyclable. Certification and manufacturing data sourced from brand websites, June 2026.",
         "background_color": "#FCF9F5",
         "padding-block-start": 48,
         "padding-block-end": 48

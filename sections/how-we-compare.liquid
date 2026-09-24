@@ -33,6 +33,8 @@
                       <img
                         src="{{ block.settings.logo_asset | asset_url }}"
                         alt="{{ block.settings.brand_name }}"
+                        width="115"
+                        height="80"
                         loading="lazy"
                         {% if logo_opacity_val < 1 %}style="opacity: {{ logo_opacity_val }};"{% endif %}
                       >
