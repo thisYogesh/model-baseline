@@ -1,0 +1,353 @@
+{%- liquid
+  assign product_resource = closest.product
+  if request.visual_preview_mode and product_resource == blank
+    assign product_resource = collections.all.products.first
+  endif
+  assign current_variant = product_resource.selected_or_first_available_variant
+  assign has_selling_plans = false
+  if product_resource.selling_plan_groups.size > 0
+    assign has_selling_plans = true
+  endif
+-%}
+
+{%- unless product_resource == blank -%}
+  <div class="purchase-options" {{ block.shopify_attributes }}>
+    {%- if has_selling_plans -%}
+      {%- assign selling_plan_group = product_resource.selling_plan_groups.first -%}
+      {%- assign first_selling_plan = selling_plan_group.selling_plans.first -%}
+
+      {%- comment -%} Subscribe & Save card {%- endcomment -%}
+      <label class="purchase-options__card purchase-options__card--subscribe" data-selected="true">
+        <div class="purchase-options__card-header">
+          <div class="purchase-options__radio-row">
+            <input
+              type="radio"
+              name="purchase_option_{{ block.id }}"
+              value="subscribe"
+              checked
+              class="purchase-options__radio"
+              data-purchase-type="subscribe"
+            >
+            <span class="purchase-options__label">{{ block.settings.subscribe_label }}</span>
+          </div>
+          <span class="purchase-options__badge">{{ block.settings.badge_text }}</span>
+        </div>
+
+        <div class="purchase-options__frequency">
+          <select
+            name="selling_plan"
+            class="purchase-options__frequency-select"
+            form="product-form-{{ section.id }}"
+          >
+            {%- for plan in selling_plan_group.selling_plans -%}
+              <option
+                value="{{ plan.id }}"
+                {% if forloop.first %}selected{% endif %}
+              >
+                {{ plan.name }}
+              </option>
+            {%- endfor -%}
+          </select>
+          <span class="purchase-options__select-icon svg-wrapper">
+            {{- 'fi-rs-angle-small-down.svg' | inline_asset_content -}}
+          </span>
+        </div>
+
+        <ul class="purchase-options__benefits">
+          {%- if block.settings.benefit_1 != blank -%}
+            <li class="purchase-options__benefit">
+              <span class="purchase-options__benefit-icon svg-wrapper">
+                {{- 'fi-rs-check.svg' | inline_asset_content -}}
+              </span>
+              {{ block.settings.benefit_1 }}
+            </li>
+          {%- endif -%}
+          {%- if block.settings.benefit_2 != blank -%}
+            <li class="purchase-options__benefit">
+              <span class="purchase-options__benefit-icon svg-wrapper">
+                {{- 'fi-rs-check.svg' | inline_asset_content -}}
+              </span>
+              {{ block.settings.benefit_2 }}
+            </li>
+          {%- endif -%}
+          {%- if block.settings.benefit_3 != blank -%}
+            <li class="purchase-options__benefit">
+              <span class="purchase-options__benefit-icon svg-wrapper">
+                {{- 'fi-rs-check.svg' | inline_asset_content -}}
+              </span>
+              {{ block.settings.benefit_3 }}
+            </li>
+          {%- endif -%}
+        </ul>
+      </label>
+
+      {%- comment -%} One Time Purchase card {%- endcomment -%}
+      <label class="purchase-options__card purchase-options__card--onetime" data-selected="false">
+        <div class="purchase-options__card-header">
+          <div class="purchase-options__radio-row">
+            <input
+              type="radio"
+              name="purchase_option_{{ block.id }}"
+              value="onetime"
+              class="purchase-options__radio"
+              data-purchase-type="onetime"
+            >
+            <span class="purchase-options__label">{{ block.settings.onetime_label }}</span>
+          </div>
+        </div>
+      </label>
+
+    {%- else -%}
+      {%- comment -%} Fallback: no selling plans — show one-time only {%- endcomment -%}
+      <label class="purchase-options__card purchase-options__card--onetime purchase-options__card--solo" data-selected="true">
+        <div class="purchase-options__card-header">
+          <div class="purchase-options__radio-row">
+            <span class="purchase-options__label">{{ block.settings.onetime_label }}</span>
+          </div>
+        </div>
+      </label>
+    {%- endif -%}
+  </div>
+
+  {%- if has_selling_plans -%}
+    <script>
+      (function() {
+        const container = document.querySelector('.purchase-options');
+        if (!container) return;
+        const radios = container.querySelectorAll('.purchase-options__radio');
+        const frequencySelect = container.querySelector('.purchase-options__frequency-select');
+        const cards = container.querySelectorAll('.purchase-options__card');
+
+        radios.forEach(function(radio) {
+          radio.addEventListener('change', function() {
+            cards.forEach(function(card) {
+              card.dataset.selected = 'false';
+            });
+            this.closest('.purchase-options__card').dataset.selected = 'true';
+
+            if (this.dataset.purchaseType === 'onetime' && frequencySelect) {
+              frequencySelect.disabled = true;
+              frequencySelect.name = '';
+            } else if (frequencySelect) {
+              frequencySelect.disabled = false;
+              frequencySelect.name = 'selling_plan';
+            }
+          });
+        });
+      })();
+    </script>
+  {%- endif -%}
+{%- endunless -%}
+
+{% stylesheet %}
+  .purchase-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .purchase-options__card {
+    display: block;
+    border: 1px solid #E0D5C7;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .purchase-options__card[data-selected='true'] {
+    border-color: #231F20;
+    background-color: #FCF9F5;
+  }
+
+  .purchase-options__card--solo {
+    border-color: #231F20;
+    background-color: #FCF9F5;
+  }
+
+  .purchase-options__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .purchase-options__radio-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .purchase-options__radio {
+    width: 18px;
+    height: 18px;
+    accent-color: #231F20;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .purchase-options__label {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #231F20;
+  }
+
+  .purchase-options__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    background-color: #E9EA6B;
+    color: #231F20;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .purchase-options__frequency {
+    position: relative;
+    margin-block-start: 12px;
+  }
+
+  .purchase-options__frequency-select {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    border: 1px solid #E0D5C7;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #231F20;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .purchase-options__select-icon {
+    position: absolute;
+    inset-inline-end: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .purchase-options__select-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .purchase-options__benefits {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .purchase-options__benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #231F20;
+  }
+
+  .purchase-options__benefit-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2E5525;
+  }
+
+  .purchase-options__benefit-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Purchase options",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "subscribe_label",
+      "label": "Subscribe label",
+      "default": "Subscribe & Save 10%"
+    },
+    {
+      "type": "text",
+      "id": "onetime_label",
+      "label": "One-time label",
+      "default": "One Time Purchase"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Best Value"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Save 10% on every order"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Skip, swap, or cancel anytime"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Free shipping on orders over $35"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purchase options",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

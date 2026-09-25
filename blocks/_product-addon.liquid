@@ -1,0 +1,233 @@
+{%- liquid
+  assign addon_product = block.settings.product
+  if addon_product == blank
+    if request.visual_preview_mode
+      assign addon_product = collections.all.products[1]
+    endif
+  endif
+-%}
+
+{%- if addon_product != blank -%}
+  <div class="product-addon" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}
+      <p class="product-addon__heading">{{ block.settings.heading }}</p>
+    {%- endif -%}
+
+    <div class="product-addon__card">
+      {%- assign addon_variant = addon_product.selected_or_first_available_variant -%}
+      {%- assign addon_image = addon_variant.featured_image | default: addon_product.featured_image -%}
+
+      {%- if addon_image -%}
+        <div class="product-addon__image">
+          {%- assign addon_image_alt = addon_image.alt | default: addon_product.title | escape -%}
+          {{
+            addon_image
+            | image_url: width: 200
+            | image_tag:
+              loading: 'lazy',
+              alt: addon_image_alt,
+              class: 'product-addon__image-img',
+              srcset: null,
+              sizes: null
+          }}
+        </div>
+      {%- endif -%}
+
+      <div class="product-addon__info">
+        <a href="{{ addon_product.url }}" class="product-addon__title">
+          {{ addon_product.title }}
+        </a>
+
+        {%- if addon_product.variants.size > 1 -%}
+          <p class="product-addon__variants-count">
+            {{ addon_product.variants.size }} options
+          </p>
+        {%- endif -%}
+
+        <p class="product-addon__price">
+          {{ addon_variant.price | money }}
+          {%- if addon_variant.compare_at_price > addon_variant.price -%}
+            <s class="product-addon__compare-price">{{ addon_variant.compare_at_price | money }}</s>
+          {%- endif -%}
+        </p>
+      </div>
+
+      {%- form 'product', addon_product -%}
+        <input type="hidden" name="id" value="{{ addon_variant.id }}">
+        <button
+          type="submit"
+          class="product-addon__button button"
+          {% unless addon_variant.available %}disabled{% endunless %}
+        >
+          {%- if addon_variant.available -%}
+            {{ block.settings.button_label }}
+          {%- else -%}
+            Sold Out
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-addon {
+    width: 100%;
+  }
+
+  .product-addon__heading {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #231F20;
+    margin: 0 0 12px;
+  }
+
+  .product-addon__card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #231F20;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .product-addon__image {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #F1E8DA;
+  }
+
+  .product-addon__image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-addon__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-addon__title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #231F20;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .product-addon__title:hover {
+    text-decoration: underline;
+  }
+
+  .product-addon__variants-count {
+    font-size: 12px;
+    color: #231F20;
+    opacity: 0.6;
+    margin: 2px 0 0;
+  }
+
+  .product-addon__price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #231F20;
+    margin: 4px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .product-addon__compare-price {
+    font-weight: 400;
+    opacity: 0.5;
+    font-size: 13px;
+  }
+
+  .product-addon__button {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    background-color: #9BD7D7;
+    color: #231F20;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .product-addon__button:hover {
+    opacity: 0.85;
+  }
+
+  .product-addon__button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product add-on",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Popular Add-on"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Add-on product"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product add-on",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

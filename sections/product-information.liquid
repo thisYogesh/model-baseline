@@ -339,6 +339,125 @@
     }
   }
 
+  /* === PDP Buybox Figma Overrides === */
+
+  /* Product title: heading font, mobile-first sizing */
+  .product-information h1,
+  .product-information .product-details h1 {
+    font-family: var(--font-heading--family);
+    font-style: var(--font-heading--style);
+    font-weight: var(--font-heading--weight);
+    font-size: 28px;
+    letter-spacing: -0.84px;
+    line-height: 1.1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-information h1,
+    .product-information .product-details h1 {
+      font-size: 40px;
+      letter-spacing: -1.2px;
+    }
+  }
+
+  /* Variant picker pill buttons */
+  .product-information .variant-picker__option-label {
+    border: 1px solid #E0D5C7;
+    border-radius: 24px;
+    padding: 6px 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    background-color: transparent;
+    color: #231F20;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .product-information .variant-picker__option-label:hover {
+    border-color: #231F20;
+  }
+
+  /* Selected variant pill */
+  .product-information .variant-picker__input:checked + .variant-picker__option-label,
+  .product-information .variant-picker__option-label[aria-checked='true'],
+  .product-information .variant-picker__option-label.is-selected {
+    border: 2px solid #2E5525;
+    background-color: #fff;
+    padding: 5px 13px; /* compensate for 2px border */
+  }
+
+  /* Variant swatch circle inside pill */
+  .product-information .variant-picker__swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Variant option off-badge (e.g. % OFF) */
+  .product-information .variant-option__badge {
+    position: absolute;
+    top: -8px;
+    inset-inline-end: -4px;
+    background-color: #E9EA6B;
+    color: #231F20;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 2px 5px;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  .product-information .variant-picker__option {
+    position: relative;
+  }
+
+  /* Add-to-cart button */
+  .product-information .add-to-cart-button,
+  .product-information .buy-buttons .button--primary,
+  .product-information .buy-buttons .button:not(.button-secondary) {
+    background-color: #9BD7D7;
+    color: #231F20;
+    border-color: #9BD7D7;
+    width: 100%;
+  }
+
+  .product-information .add-to-cart-button:hover,
+  .product-information .buy-buttons .button--primary:hover,
+  .product-information .buy-buttons .button:not(.button-secondary):hover {
+    background-color: #82c9c9;
+    border-color: #82c9c9;
+    color: #231F20;
+  }
+
+  /* Accordion summary headings — uppercase */
+  .product-information .accordion summary,
+  .product-information .accordion details > summary {
+    font-family: var(--font-heading--family);
+    font-style: var(--font-heading--style);
+    font-weight: var(--font-heading--weight);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+  }
+
+  /* Accordion divider lines between rows */
+  .product-information .accordion details {
+    border-bottom: 1px solid #E0D5C7;
+  }
+
+  .product-information .accordion details:last-child {
+    border-bottom: none;
+  }
+
+  /* Unit price styling */
+  .product-information .unit-price {
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  /* === End PDP Buybox Figma Overrides === */
+
   /* Small mobile - hide text content and compare price */
   @media screen and (max-width: 389px) {
     .sticky-add-to-cart__bar {

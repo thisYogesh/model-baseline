@@ -24,7 +24,7 @@
             "slideshow_controls_style": "counter",
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "right",
-            "thumbnail_width": 44,
+            "thumbnail_width": 72,
             "aspect_ratio": "adapt",
             "constrain_to_viewport": true,
             "media_fit": "contain",
@@ -50,7 +50,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 28,
+            "gap": 20,
             "sticky_details_desktop": true,
             "background_media": "none",
             "video_position": "cover",
@@ -76,7 +76,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -111,8 +111,8 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
+                    "type_preset": "h2",
+                    "font": "var(--font-heading--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
@@ -128,21 +128,35 @@
                   },
                   "blocks": {}
                 },
-                "price_tVjtKg": {
-                  "type": "price",
+                "text_subtitle_Kx9d": {
+                  "type": "text",
+                  "name": "Subtitle",
                   "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": true,
-                    "show_tax_info": true,
-                    "type_preset": "paragraph",
-                    "width": "100%",
+                    "text": "<p>Powerful Clean Pods</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
                     "alignment": "left",
+                    "type_preset": "paragraph",
                     "font": "var(--font-body--family)",
-                    "font_size": "1rem",
+                    "font_size": "0.875rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
-                    "case": "none",
-                    "padding-block-start": 4,
+                    "case": "uppercase",
+                    "wrap": "pretty",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "review_bR4kWq": {
+                  "type": "review",
+                  "settings": {
+                    "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
@@ -152,19 +166,28 @@
               },
               "block_order": [
                 "text_xpVMaM",
-                "price_tVjtKg"
+                "text_subtitle_Kx9d",
+                "review_bR4kWq"
               ]
             },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
+            "price_tVjtKg": {
+              "type": "price",
               "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color3 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
+                "show_sale_price_first": true,
+                "show_installments": true,
+                "show_tax_info": true,
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -172,12 +195,26 @@
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
-                "show_swatches": false,
+                "show_swatches": true,
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "purchase_options_fN7xQ": {
+              "type": "_purchase-options",
+              "settings": {
+                "subscribe_label": "Subscribe & Save 10%",
+                "onetime_label": "One Time Purchase",
+                "badge_text": "Best Value",
+                "benefit_1": "Save 10% on every order",
+                "benefit_2": "Skip, swap, or cancel anytime",
+                "benefit_3": "Free shipping on orders over $35",
+                "padding-block-start": 0,
+                "padding-block-end": 0
               },
               "blocks": {}
             },
@@ -216,38 +253,106 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
+            "shipping_banner_mW3kL": {
+              "type": "_shipping-banner",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "shipping_text": "Free Shipping Over $35",
+                "guarantee_text": "30 Day Money-Back Guarantee",
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "accordion_pTb8Vq": {
+              "type": "accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": false,
+                "type_preset": "h6",
+                "border": "none",
+                "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
+              },
+              "blocks": {
+                "row_description": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Description",
+                    "open_by_default": true
+                  },
+                  "blocks": {
+                    "desc_text": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.description }}",
+                        "width": "100%",
+                        "alignment": "left",
+                        "type_preset": "rte"
+                      }
+                    }
+                  },
+                  "block_order": ["desc_text"]
+                },
+                "row_ingredients": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Ingredients"
+                  },
+                  "blocks": {
+                    "ingredients_text": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>See product label for full ingredient list.</p>",
+                        "width": "100%",
+                        "alignment": "left"
+                      }
+                    }
+                  },
+                  "block_order": ["ingredients_text"]
+                },
+                "row_impact": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Impact"
+                  },
+                  "blocks": {
+                    "impact_text": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Learn about our environmental commitments and certifications.</p>",
+                        "width": "100%",
+                        "alignment": "left"
+                      }
+                    }
+                  },
+                  "block_order": ["impact_text"]
+                }
+              },
+              "block_order": ["row_description", "row_ingredients", "row_impact"]
+            },
+            "product_addon_gY2nR": {
+              "type": "_product-addon",
+              "settings": {
+                "heading": "Popular Add-on",
+                "button_label": "Add to Cart",
+                "padding-block-start": 0,
+                "padding-block-end": 0
               },
               "blocks": {}
             }
           },
           "block_order": [
             "group_icgrde",
-            "divider_VJhene",
+            "price_tVjtKg",
             "variant_picker_R3rGDr",
+            "purchase_options_fN7xQ",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "shipping_banner_mW3kL",
+            "accordion_pTb8Vq",
+            "product_addon_gY2nR"
           ]
         },
         "disclosures": {

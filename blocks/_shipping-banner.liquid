@@ -1,0 +1,106 @@
+<div class="shipping-banner" {{ block.shopify_attributes }}>
+  {%- if block.settings.shipping_text != blank -%}
+    <div class="shipping-banner__row">
+      <span class="shipping-banner__icon svg-wrapper">
+        {{- 'fi-rs-truck-side.svg' | inline_asset_content -}}
+      </span>
+      <span class="shipping-banner__text">{{ block.settings.shipping_text }}</span>
+    </div>
+  {%- endif -%}
+  {%- if block.settings.guarantee_text != blank -%}
+    <div class="shipping-banner__row">
+      <span class="shipping-banner__icon svg-wrapper">
+        {{- 'fi-rs-refresh.svg' | inline_asset_content -}}
+      </span>
+      <span class="shipping-banner__text">{{ block.settings.guarantee_text }}</span>
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .shipping-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .shipping-banner__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .shipping-banner__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #231F20;
+  }
+
+  .shipping-banner__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .shipping-banner__text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #231F20;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shipping banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping text",
+      "default": "Free Shipping Over $35"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "30 Day Money-Back Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shipping banner",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
