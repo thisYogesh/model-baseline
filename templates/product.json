@@ -479,7 +479,8 @@
               "type": "_community-slide",
               "settings": {
                 "slide_type": "single_image",
-                "column_width": "narrow"
+                "column_width": "narrow",
+                "image_1": "shopify://shop_images/582540b5b8bea1e3bc010a2fbf5648a2-1-mobile-9916855.jpg"
               }
             },
             "slide_2": {
@@ -487,25 +488,32 @@
               "settings": {
                 "slide_type": "image_with_promo",
                 "column_width": "wide",
+                "image_1": "shopify://shop_images/screenshot-2026-07-03-at-5-35-54-pm-1-mobile-9916860.png",
+                "image_2": "shopify://shop_images/image-13-mobile-9916861.png",
                 "promo_bg_color": "#482B73",
                 "promo_heading": "Odor & Stain Laundry Detergent",
                 "promo_heading_color": "#FFFFFF",
                 "promo_cta_text": "Shop Now",
-                "promo_cta_color": "#FFFFFF"
+                "promo_cta_color": "#FFFFFF",
+                "promo_product_image": "shopify://shop_images/artboard-1-10-mobile-9916864.png"
               }
             },
             "slide_3": {
               "type": "_community-slide",
               "settings": {
                 "slide_type": "stacked_images",
-                "column_width": "narrow"
+                "column_width": "narrow",
+                "image_1": "shopify://shop_images/740b6050d19d850fc138e16197784958-3-mobile-9916875.jpg",
+                "image_2": "shopify://shop_images/dts-bloom-pointless-agency-photos-id14763-1-mobile-63830669.png"
               }
             },
             "slide_4": {
               "type": "_community-slide",
               "settings": {
                 "slide_type": "stacked_images",
-                "column_width": "narrow"
+                "column_width": "narrow",
+                "image_1": "shopify://shop_images/740b6050d19d850fc138e16197784958-3-mobile-9916875.jpg",
+                "image_2": "shopify://shop_images/dts-bloom-pointless-agency-photos-id14763-1-mobile-63830693.png"
               }
             },
             "slide_5": {
@@ -513,6 +521,8 @@
               "settings": {
                 "slide_type": "stacked_images",
                 "column_width": "narrow",
+                "image_1": "shopify://shop_images/740b6050d19d850fc138e16197784958-3-mobile-9916875.jpg",
+                "image_2": "shopify://shop_images/image-19-mobile-9916877.png",
                 "promo_bg_color": "#E9EA6B",
                 "promo_heading": "1,000+\\n5 star\\nreviews",
                 "promo_heading_color": "#231F20"
@@ -523,6 +533,7 @@
               "settings": {
                 "slide_type": "promo_card",
                 "column_width": "narrow",
+                "promo_product_image": "shopify://shop_images/artboard-1-9-mobile-9916872.png",
                 "promo_bg_color": "#C24829",
                 "promo_heading": "When you need extra cleansing",
                 "promo_heading_color": "#FCF9F5",
