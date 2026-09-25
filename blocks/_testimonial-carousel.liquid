@@ -1,0 +1,197 @@
+{%- liquid
+  assign slide_count = block.blocks.size
+  assign bg_color = block.settings.background_color
+  assign heading_color = block.settings.heading_color
+  assign text_color = block.settings.text_color
+  assign accent_color = block.settings.accent_color
+-%}
+
+<div
+  class="testimonial-carousel"
+  {{ block.shopify_attributes }}
+  style="
+    --testimonial-bg: {{ bg_color }};
+    --testimonial-heading-color: {{ heading_color }};
+    --testimonial-text-color: {{ text_color }};
+    --testimonial-accent-color: {{ accent_color }};
+    background-color: var(--testimonial-bg);
+  "
+  data-testimonial-carousel
+  data-block-id="{{ block.id }}"
+>
+  <div class="testimonial-carousel__slides" data-testimonial-slides>
+    {% content_for 'blocks' %}
+  </div>
+
+  {%- if slide_count > 1 -%}
+    <div class="testimonial-carousel__dots" data-testimonial-dots>
+      {%- for i in (1..slide_count) -%}
+        {%- assign index = i | minus: 1 -%}
+        <button
+          class="testimonial-carousel__dot{% if index == 0 %} testimonial-carousel__dot--active{% endif %}"
+          data-testimonial-dot="{{ index }}"
+          type="button"
+          aria-label="Go to slide {{ i }}"
+        ></button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  (function() {
+    const blockId = '{{ block.id }}';
+    const carousel = document.querySelector('[data-block-id="' + blockId + '"]');
+
+    if (!carousel) return;
+
+    const slidesContainer = carousel.querySelector('[data-testimonial-slides]');
+    const dotsContainer = carousel.querySelector('[data-testimonial-dots]');
+    if (!slidesContainer) return;
+
+    const slides = slidesContainer.querySelectorAll('.testimonial-slide');
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('[data-testimonial-dot]') : [];
+    const mql = window.matchMedia('(min-width: 750px)');
+
+    function showSlide(index) {
+      slides.forEach(function(slide, i) {
+        if (i === index) {
+          slide.style.display = mql.matches ? 'grid' : 'flex';
+          slide.removeAttribute('aria-hidden');
+        } else {
+          slide.style.display = 'none';
+          slide.setAttribute('aria-hidden', 'true');
+        }
+      });
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('testimonial-carousel__dot--active', i === index);
+      });
+    }
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        const index = parseInt(dot.getAttribute('data-testimonial-dot'), 10);
+        showSlide(index);
+      });
+    });
+
+    if (slides.length > 0) {
+      showSlide(0);
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .testimonial-carousel {
+    width: 100%;
+    position: relative;
+  }
+
+  .testimonial-carousel__slides {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .testimonial-carousel__slides .testimonial-slide ~ .testimonial-slide {
+    display: none;
+  }
+
+  .testimonial-carousel__dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 16px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .testimonial-carousel__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--testimonial-heading-color, #F1E8DA);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: width 0.2s ease, border-radius 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .testimonial-carousel__dot--active {
+    width: 18px;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-carousel__dots {
+      gap: 8px;
+      padding: 16px 24px;
+      bottom: 48px;
+    }
+
+    .testimonial-carousel__dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .testimonial-carousel__dot--active {
+      width: 24px;
+      height: 8px;
+      border-radius: 4px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Testimonial carousel",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_testimonial-slide"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#14495B"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading & quote color",
+      "default": "#F1E8DA"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FCF9F5"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#E9EA6B"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial carousel"
+    }
+  ]
+}
+{% endschema %}

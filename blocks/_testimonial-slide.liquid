@@ -1,0 +1,352 @@
+{%- liquid
+  assign heading = block.settings.heading
+  assign quote_text = block.settings.quote_text
+  assign reviewer_name = block.settings.reviewer_name
+  assign product_name = block.settings.product_name
+  assign product_url = block.settings.product_url
+  assign star_rating = block.settings.star_rating
+  assign image_left = block.settings.image_left
+  assign image_right = block.settings.image_right
+  assign image_mobile = block.settings.image_mobile
+-%}
+
+<div class="testimonial-slide" {{ block.shopify_attributes }}>
+  {%- if image_left != blank -%}
+    <div class="testimonial-slide__image testimonial-slide__image--left">
+      {{
+        image_left
+        | image_url: width: image_left.width
+        | image_tag:
+          sizes: '(min-width: 750px) 39vw, 0px',
+          widths: '375,550,750,1100',
+          loading: 'lazy',
+          alt: heading,
+          class: 'testimonial-slide__img'
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="testimonial-slide__content">
+    {%- if image_mobile != blank -%}
+      <div class="testimonial-slide__image-mobile">
+        {{
+          image_mobile
+          | image_url: width: image_mobile.width
+          | image_tag:
+            sizes: '305px',
+            widths: '305,375,610,750',
+            loading: 'lazy',
+            alt: heading,
+            class: 'testimonial-slide__img-mobile'
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="testimonial-slide__stars" aria-label="Rated {{ star_rating }} out of 5 stars">
+      {%- for i in (1..star_rating) -%}
+        <svg class="testimonial-slide__star" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M7 0.5L8.76336 4.83688L13.5 5.41604L9.95 8.56312L10.9266 13.5L7 11.1369L3.07339 13.5L4.05 8.56312L0.5 5.41604L5.23664 4.83688L7 0.5Z" fill="currentColor"/>
+        </svg>
+      {%- endfor -%}
+    </div>
+
+    <div class="testimonial-slide__text-lockup">
+      {%- if heading != blank -%}
+        <h3 class="testimonial-slide__heading">{{ heading }}</h3>
+      {%- endif -%}
+
+      {%- if quote_text != blank -%}
+        <p class="testimonial-slide__quote">{{ quote_text }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="testimonial-slide__reviewer">
+      <div class="testimonial-slide__reviewer-row">
+        <svg class="testimonial-slide__check-circle" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="8" stroke="var(--testimonial-accent-color, #E9EA6B)" stroke-width="1.5" fill="none"/>
+          <polyline points="7.5,10.5 9.5,12.5 13.5,8.5" stroke="var(--testimonial-accent-color, #E9EA6B)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {%- if reviewer_name != blank -%}
+          <span class="testimonial-slide__reviewer-name">{{ reviewer_name }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product_name != blank -%}
+        {%- if product_url != blank -%}
+          <a href="{{ product_url }}" class="testimonial-slide__product-link">{{ product_name }}</a>
+        {%- else -%}
+          <span class="testimonial-slide__product-link">{{ product_name }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if image_right != blank -%}
+    <div class="testimonial-slide__image testimonial-slide__image--right">
+      {{
+        image_right
+        | image_url: width: image_right.width
+        | image_tag:
+          sizes: '(min-width: 750px) 46vw, 0px',
+          widths: '375,550,750,1100',
+          loading: 'lazy',
+          alt: heading,
+          class: 'testimonial-slide__img'
+      }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .testimonial-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 48px 30px 38px 30px;
+    box-sizing: border-box;
+  }
+
+  .testimonial-slide__image {
+    display: none;
+  }
+
+  .testimonial-slide__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 315px;
+    width: 100%;
+  }
+
+  .testimonial-slide__image-mobile {
+    width: 305px;
+    height: 305px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .testimonial-slide__img-mobile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonial-slide__stars {
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    justify-content: center;
+    color: var(--testimonial-heading-color, #FCF9F5);
+  }
+
+  .testimonial-slide__star {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .testimonial-slide__text-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .testimonial-slide__heading {
+    font-family: var(--font-heading--family);
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.2px;
+    text-align: center;
+    color: var(--testimonial-heading-color, #F1E8DA);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .testimonial-slide__quote {
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--testimonial-heading-color, #F1E8DA);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .testimonial-slide__reviewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .testimonial-slide__reviewer-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .testimonial-slide__check-circle {
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+  }
+
+  .testimonial-slide__reviewer-name {
+    font-family: var(--font-body--family);
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--testimonial-text-color, #FCF9F5);
+    font-weight: 500;
+  }
+
+  .testimonial-slide__product-link {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.14px;
+    text-decoration: underline;
+    text-align: center;
+    color: var(--testimonial-text-color, #FCF9F5);
+    font-weight: 500;
+  }
+
+  a.testimonial-slide__product-link:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-slide {
+      display: grid;
+      grid-template-columns: 39% 1fr 46%;
+      align-items: center;
+      padding: 0;
+      min-height: 624px;
+    }
+
+    .testimonial-slide__image {
+      display: block;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .testimonial-slide__image--left {
+      height: 100%;
+    }
+
+    .testimonial-slide__image--right {
+      height: 100%;
+    }
+
+    .testimonial-slide__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-slide__content {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .testimonial-slide__image-mobile {
+      display: none;
+    }
+
+    .testimonial-slide__text-lockup {
+      gap: 24px;
+    }
+
+    .testimonial-slide__heading {
+      font-size: 56px;
+      line-height: 56px;
+      letter-spacing: -1.68px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Testimonial slide",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "No Rinse, No Problem"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_text",
+      "label": "Quote text",
+      "default": "\"I scrape plates but rarely rinse them, and I am a three course dinner kind of home cook. I get baked on mess and LOTS of dirty pots and pans. I have been very satisfied with the cleaning power of this product.\""
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name",
+      "label": "Reviewer name",
+      "default": "Kathy F"
+    },
+    {
+      "type": "text",
+      "id": "product_name",
+      "label": "Product name",
+      "default": "Stain & Odor Laundry Pods"
+    },
+    {
+      "type": "url",
+      "id": "product_url",
+      "label": "Product URL"
+    },
+    {
+      "type": "range",
+      "id": "star_rating",
+      "label": "Star rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial slide"
+    }
+  ]
+}
+{% endschema %}

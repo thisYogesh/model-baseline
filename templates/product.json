@@ -462,6 +462,52 @@
         "padding-block-end": 80
       }
     },
+    "testimonial_carousel_section": {
+      "type": "section",
+      "blocks": {
+        "testimonial_carousel_block": {
+          "type": "_testimonial-carousel",
+          "settings": {
+            "background_color": "#14495B",
+            "heading_color": "#F1E8DA",
+            "text_color": "#FCF9F5",
+            "accent_color": "#E9EA6B"
+          },
+          "blocks": {
+            "slide_1": {
+              "type": "_testimonial-slide",
+              "settings": {
+                "heading": "No Rinse, No Problem",
+                "quote_text": "\"I scrape plates but rarely rinse them, and I am a three course dinner kind of home cook. I get baked on mess and LOTS of dirty pots and pans. I have been very satisfied with the cleaning power of this product.\"",
+                "reviewer_name": "Kathy F",
+                "product_name": "Stain & Odor Laundry Pods",
+                "star_rating": 5,
+                "image_left": "shopify://shop_images/312df3c0b440a4f3a5a037025b8de44a-1-desktop-47416229.jpg",
+                "image_right": "shopify://shop_images/312df3c0b440a4f3a5a037025b8de44a-1-desktop-47416229.jpg",
+                "image_mobile": "shopify://shop_images/img-mobile-52628754.jpg"
+              }
+            }
+          },
+          "block_order": [
+            "slide_1"
+          ]
+        }
+      },
+      "block_order": [
+        "testimonial_carousel_block"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "full-width",
+        "background_media": "none",
+        "border": "none",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -602,6 +648,7 @@
     "main",
     "how_we_compare_xK7mPq",
     "clean_ingredients_bar_rT4mWq",
+    "testimonial_carousel_section",
     "product_recommendations_qggXJq"
   ]
 }
