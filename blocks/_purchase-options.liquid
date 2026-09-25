@@ -3,7 +3,6 @@
   if request.visual_preview_mode and product_resource == blank
     assign product_resource = collections.all.products.first
   endif
-  assign current_variant = product_resource.selected_or_first_available_variant
   assign has_selling_plans = false
   if product_resource.selling_plan_groups.size > 0
     assign has_selling_plans = true
@@ -14,8 +13,6 @@
   <div class="purchase-options" {{ block.shopify_attributes }}>
     {%- if has_selling_plans -%}
       {%- assign selling_plan_group = product_resource.selling_plan_groups.first -%}
-      {%- assign first_selling_plan = selling_plan_group.selling_plans.first -%}
-
       {%- comment -%} Subscribe & Save card {%- endcomment -%}
       <label class="purchase-options__card purchase-options__card--subscribe" data-selected="true">
         <div class="purchase-options__card-header">
