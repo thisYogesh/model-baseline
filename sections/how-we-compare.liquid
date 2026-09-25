@@ -1,0 +1,455 @@
+{% liquid
+  assign heading = section.settings.heading
+  assign format_label = section.settings.format_label
+  assign footnote = section.settings.footnote
+  assign bg_color = section.settings.background_color
+%}
+
+<div
+  class="how-we-compare section spacing-style"
+  style="
+    --padding-block-start: {{ section.settings.padding-block-start }}px;
+    --padding-block-end: {{ section.settings.padding-block-end }}px;
+    {% if bg_color != blank %}background-color: {{ bg_color }};{% endif %}
+  "
+>
+  <div class="page-width">
+    {% if heading != blank %}
+      <h2 class="how-we-compare__heading">{{ heading }}</h2>
+    {% endif %}
+
+    <div class="how-we-compare__table-wrapper">
+      <table class="how-we-compare__table">
+        <thead>
+          <tr>
+            <th class="how-we-compare__feature-header"></th>
+            {% for block in section.blocks %}
+              <th
+                class="how-we-compare__brand-header{% if block.settings.is_highlighted %} how-we-compare__brand-header--highlighted{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                <div class="how-we-compare__brand-logo-wrap">
+                  {% liquid
+                    assign opacity_decimal = block.settings.logo_opacity | divided_by: 100.0
+                    assign logo_style = 'opacity: ' | append: opacity_decimal | append: ';'
+                  %}
+                  {% if block.settings.logo != blank %}
+                    {{
+                      block.settings.logo
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'how-we-compare__brand-logo',
+                        style: logo_style
+                    }}
+                  {% elsif block.settings.logo_asset != blank %}
+                    {% assign logo_url = block.settings.logo_asset | asset_url %}
+                    <img
+                      src="{{ logo_url }}"
+                      alt="{{ block.settings.brand_name }}"
+                      class="how-we-compare__brand-logo"
+                      loading="lazy"
+                      style="{{ logo_style }}"
+                    >
+                  {% else %}
+                    <span class="how-we-compare__brand-name-text">{{ block.settings.brand_name }}</span>
+                  {% endif %}
+                </div>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% comment %} Format row {% endcomment %}
+          {% if format_label != blank %}
+            <tr class="how-we-compare__row">
+              <td class="how-we-compare__feature-label">{{ format_label }}</td>
+              {% for block in section.blocks %}
+                <td class="how-we-compare__cell{% if block.settings.is_highlighted %} how-we-compare__cell--highlighted{% endif %}">
+                  <span class="how-we-compare__format-text">{{ block.settings.format_text }}</span>
+                </td>
+              {% endfor %}
+            </tr>
+          {% endif %}
+
+          {% comment %} Feature rows {% endcomment %}
+          {% for i in (1..7) %}
+            {% liquid
+              case i
+                when 1
+                  assign feature_label = section.settings.feature_1_label
+                when 2
+                  assign feature_label = section.settings.feature_2_label
+                when 3
+                  assign feature_label = section.settings.feature_3_label
+                when 4
+                  assign feature_label = section.settings.feature_4_label
+                when 5
+                  assign feature_label = section.settings.feature_5_label
+                when 6
+                  assign feature_label = section.settings.feature_6_label
+                when 7
+                  assign feature_label = section.settings.feature_7_label
+              endcase
+            %}
+            {% if feature_label != blank %}
+              <tr class="how-we-compare__row">
+                <td class="how-we-compare__feature-label">{{ feature_label }}</td>
+                {% for block in section.blocks %}
+                  {% liquid
+                    case i
+                      when 1
+                        assign feature_val = block.settings.feature_1
+                      when 2
+                        assign feature_val = block.settings.feature_2
+                      when 3
+                        assign feature_val = block.settings.feature_3
+                      when 4
+                        assign feature_val = block.settings.feature_4
+                      when 5
+                        assign feature_val = block.settings.feature_5
+                      when 6
+                        assign feature_val = block.settings.feature_6
+                      when 7
+                        assign feature_val = block.settings.feature_7
+                    endcase
+                  %}
+                  <td class="how-we-compare__cell{% if block.settings.is_highlighted %} how-we-compare__cell--highlighted{% endif %}">
+                    {% if feature_val %}
+                      <span class="how-we-compare__check" aria-label="Yes">✓</span>
+                    {% else %}
+                      <span class="how-we-compare__dash" aria-label="No">—</span>
+                    {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if footnote != blank %}
+      <p class="how-we-compare__footnote">{{ footnote }}</p>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .how-we-compare {
+    width: 100%;
+  }
+
+  .how-we-compare__heading {
+    font-family: var(--font-heading--family), sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+    margin: 0 0 32px;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .how-we-compare__heading {
+      font-size: 56px;
+      line-height: 56px;
+      letter-spacing: -0.56px;
+      margin-block-end: 48px;
+    }
+  }
+
+  .how-we-compare__table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .how-we-compare__table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .how-we-compare__feature-header {
+    width: 200px;
+    text-align: start;
+    padding: 12px 8px;
+    vertical-align: bottom;
+  }
+
+  .how-we-compare__brand-header {
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: bottom;
+  }
+
+  .how-we-compare__brand-header--highlighted {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .how-we-compare__brand-logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  .how-we-compare__brand-logo {
+    max-width: 80px;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  .how-we-compare__brand-name-text {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .how-we-compare__row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .how-we-compare__feature-label {
+    padding: 14px 8px;
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: start;
+    vertical-align: middle;
+  }
+
+  .how-we-compare__cell {
+    padding: 14px 8px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .how-we-compare__cell--highlighted {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  .how-we-compare__format-text {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .how-we-compare__check {
+    color: #2E7D32;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .how-we-compare__dash {
+    color: #BDBDBD;
+    font-size: 18px;
+  }
+
+  .how-we-compare__footnote {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.5);
+    margin-block-start: 24px;
+    margin-block-end: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "How we compare",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How We Compare"
+    },
+    {
+      "type": "text",
+      "id": "format_label",
+      "label": "Format label",
+      "default": "Format"
+    },
+    {
+      "type": "header",
+      "content": "Feature labels"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_label",
+      "label": "Feature 1 label"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_label",
+      "label": "Feature 2 label"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_label",
+      "label": "Feature 3 label"
+    },
+    {
+      "type": "text",
+      "id": "feature_4_label",
+      "label": "Feature 4 label"
+    },
+    {
+      "type": "text",
+      "id": "feature_5_label",
+      "label": "Feature 5 label"
+    },
+    {
+      "type": "text",
+      "id": "feature_6_label",
+      "label": "Feature 6 label"
+    },
+    {
+      "type": "text",
+      "id": "feature_7_label",
+      "label": "Feature 7 label"
+    },
+    {
+      "type": "header",
+      "content": "Footnote"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FCF9F5"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "competitor",
+      "name": "Competitor",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Brand"
+        },
+        {
+          "type": "text",
+          "id": "logo_asset",
+          "label": "Logo SVG asset"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand name"
+        },
+        {
+          "type": "text",
+          "id": "format_text",
+          "label": "Format"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_highlighted",
+          "label": "Highlight column",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "logo_opacity",
+          "label": "Logo opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Features"
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_4",
+          "label": "Feature 4",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_5",
+          "label": "Feature 5",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_6",
+          "label": "Feature 6",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "feature_7",
+          "label": "Feature 7",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

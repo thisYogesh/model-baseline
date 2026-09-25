@@ -1,0 +1,319 @@
+{% liquid
+  assign heading = block.settings.heading
+  assign background_color = block.settings.background_color
+  assign cta_label = block.settings.cta_label
+%}
+
+<div
+  class="clean-ingredients-bar"
+  {{ block.shopify_attributes }}
+  {% if background_color != blank %}
+    style="background-color: {{ background_color }};"
+  {% endif %}
+>
+  <div class="clean-ingredients-bar__inner">
+    {% if heading != blank %}
+      <h2 class="clean-ingredients-bar__heading">{{ heading }}</h2>
+    {% endif %}
+
+    <div class="clean-ingredients-bar__rows">
+      {% for i in (1..4) %}
+        {% liquid
+          case i
+            when 1
+              assign row_label = block.settings.row_1_label
+              assign row_desc = block.settings.row_1_description
+            when 2
+              assign row_label = block.settings.row_2_label
+              assign row_desc = block.settings.row_2_description
+            when 3
+              assign row_label = block.settings.row_3_label
+              assign row_desc = block.settings.row_3_description
+            when 4
+              assign row_label = block.settings.row_4_label
+              assign row_desc = block.settings.row_4_description
+          endcase
+        %}
+        {% if row_label != blank %}
+          <div class="clean-ingredients-bar__row">
+            <span class="clean-ingredients-bar__row-label">{{ row_label }}</span>
+            {% if row_desc != blank %}
+              <p class="clean-ingredients-bar__row-desc">{{ row_desc | newline_to_br }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="clean-ingredients-bar__badges">
+      {% if block.settings.badge_1_label != blank %}
+        <div class="clean-ingredients-bar__badge">
+          <span class="clean-ingredients-bar__badge-label">{{ block.settings.badge_1_label }}</span>
+        </div>
+      {% endif %}
+      {% if block.settings.badge_2_label != blank %}
+        <div class="clean-ingredients-bar__badge">
+          {% if block.settings.badge_2_image != blank %}
+            {{
+              block.settings.badge_2_image
+              | image_url: width: 200
+              | image_tag:
+                loading: 'lazy',
+                class: 'clean-ingredients-bar__badge-img'
+            }}
+          {% endif %}
+          <span class="clean-ingredients-bar__badge-label">{{ block.settings.badge_2_label }}</span>
+        </div>
+      {% endif %}
+      {% if block.settings.badge_3_label != blank %}
+        <div class="clean-ingredients-bar__badge">
+          {% if block.settings.badge_3_image != blank %}
+            {{
+              block.settings.badge_3_image
+              | image_url: width: 200
+              | image_tag:
+                loading: 'lazy',
+                class: 'clean-ingredients-bar__badge-img'
+            }}
+          {% endif %}
+          <span class="clean-ingredients-bar__badge-label">{{ block.settings.badge_3_label }}</span>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if cta_label != blank %}
+      <button class="clean-ingredients-bar__cta" type="button">{{ cta_label }}</button>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .clean-ingredients-bar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 40px 24px;
+  }
+
+  .clean-ingredients-bar__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .clean-ingredients-bar__heading {
+    font-family: var(--font-heading--family), sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .clean-ingredients-bar__heading {
+      font-size: 56px;
+      line-height: 56px;
+      letter-spacing: -0.56px;
+    }
+  }
+
+  .clean-ingredients-bar__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .clean-ingredients-bar__row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-block-end: 16px;
+  }
+
+  .clean-ingredients-bar__row:last-child {
+    border-bottom: none;
+    padding-block-end: 0;
+  }
+
+  .clean-ingredients-bar__row-label {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .clean-ingredients-bar__row-desc {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .clean-ingredients-bar__badges {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .clean-ingredients-bar__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .clean-ingredients-bar__badge-img {
+    width: 48px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .clean-ingredients-bar__badge-label {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .clean-ingredients-bar__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: 1px solid currentColor;
+    border-radius: 100px;
+    background: transparent;
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Clean ingredients bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Formula"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#E9EA6B"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "View all ingredients"
+    },
+    {
+      "type": "header",
+      "content": "Row 1"
+    },
+    {
+      "type": "text",
+      "id": "row_1_label",
+      "label": "Row 1 label"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_description",
+      "label": "Row 1 description"
+    },
+    {
+      "type": "header",
+      "content": "Row 2"
+    },
+    {
+      "type": "text",
+      "id": "row_2_label",
+      "label": "Row 2 label"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_description",
+      "label": "Row 2 description"
+    },
+    {
+      "type": "header",
+      "content": "Row 3"
+    },
+    {
+      "type": "text",
+      "id": "row_3_label",
+      "label": "Row 3 label"
+    },
+    {
+      "type": "textarea",
+      "id": "row_3_description",
+      "label": "Row 3 description"
+    },
+    {
+      "type": "header",
+      "content": "Row 4"
+    },
+    {
+      "type": "text",
+      "id": "row_4_label",
+      "label": "Row 4 label"
+    },
+    {
+      "type": "textarea",
+      "id": "row_4_description",
+      "label": "Row 4 description"
+    },
+    {
+      "type": "header",
+      "content": "Badges"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_label",
+      "label": "Badge 1 label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_2_image",
+      "label": "Badge 2 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_label",
+      "label": "Badge 2 label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_3_image",
+      "label": "Badge 3 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_label",
+      "label": "Badge 3 label"
+    }
+  ]
+}
+{% endschema %}
