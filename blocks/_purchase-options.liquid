@@ -10,7 +10,7 @@
 -%}
 
 {%- unless product_resource == blank -%}
-  <div class="purchase-options" {{ block.shopify_attributes }}>
+  <div class="purchase-options" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
     {%- if has_selling_plans -%}
       {%- assign selling_plan_group = product_resource.selling_plan_groups.first -%}
       {%- comment -%} Subscribe & Save card {%- endcomment -%}
@@ -109,7 +109,7 @@
   {%- if has_selling_plans -%}
     <script>
       (function() {
-        const container = document.querySelector('.purchase-options');
+        const container = document.querySelector('[data-block-id="{{ block.id }}"]');
         if (!container) return;
         const radios = container.querySelectorAll('.purchase-options__radio');
         const frequencySelect = container.querySelector('.purchase-options__frequency-select');
