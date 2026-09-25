@@ -77,11 +77,11 @@
 
   .product-addon__heading {
     font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.14px;
+    line-height: 18px;
     color: #231F20;
-    margin: 0 0 12px;
+    margin: 0 0 10px;
   }
 
   .product-addon__card {
@@ -90,7 +90,14 @@
     gap: 12px;
     border: 1px solid #231F20;
     border-radius: 8px;
-    padding: 12px;
+    padding: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-addon__card {
+      gap: 18px;
+      padding: 16px 32px 16px 16px;
+    }
   }
 
   .product-addon__image {
@@ -154,20 +161,22 @@
 
   .product-addon__button {
     flex-shrink: 0;
-    padding: 8px 16px;
-    font-size: 13px;
+    padding: 12px 24px;
+    font-size: 14px;
     font-weight: 600;
+    line-height: 16px;
     white-space: nowrap;
-    background-color: #9BD7D7;
+    background-color: transparent;
     color: #231F20;
-    border: none;
+    border: 1px solid #231F20;
     border-radius: 6px;
     cursor: pointer;
-    transition: opacity 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
 
   .product-addon__button:hover {
-    opacity: 0.85;
+    background-color: #231F20;
+    color: #FFFFFF;
   }
 
   .product-addon__button[disabled] {

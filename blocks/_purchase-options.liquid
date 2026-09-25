@@ -12,9 +12,31 @@
 {%- unless product_resource == blank -%}
   <div class="purchase-options" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
     {%- if has_selling_plans -%}
-      {%- assign selling_plan_group = product_resource.selling_plan_groups.first -%}
+      {%- liquid
+        assign selling_plan_group = product_resource.selling_plan_groups.first
+        assign current_variant = product_resource.selected_or_first_available_variant
+        assign regular_price = current_variant.price
+        assign first_plan = selling_plan_group.selling_plans.first
+        assign plan_adjustment = first_plan.price_adjustments.first
+        assign plan_price = regular_price
+        if plan_adjustment != blank
+          if plan_adjustment.value_type == 'percentage'
+            assign discount_multiplier = 100 | minus: plan_adjustment.value
+            assign plan_price = regular_price | times: discount_multiplier | divided_by: 100
+          elsif plan_adjustment.value_type == 'fixed_amount'
+            assign plan_price = regular_price | minus: plan_adjustment.value
+          elsif plan_adjustment.value_type == 'price'
+            assign plan_price = plan_adjustment.value
+          endif
+        endif
+        assign show_plan_discount = false
+        if plan_price < regular_price
+          assign show_plan_discount = true
+        endif
+      -%}
       {%- comment -%} Subscribe & Save card {%- endcomment -%}
       <label class="purchase-options__card purchase-options__card--subscribe" data-selected="true">
+        <span class="purchase-options__badge">{{ block.settings.badge_text }}</span>
         <div class="purchase-options__card-header">
           <div class="purchase-options__radio-row">
             <input
@@ -27,7 +49,12 @@
             >
             <span class="purchase-options__label">{{ block.settings.subscribe_label }}</span>
           </div>
-          <span class="purchase-options__badge">{{ block.settings.badge_text }}</span>
+          {%- if show_plan_discount -%}
+            <div class="purchase-options__price-row">
+              <s class="purchase-options__compare-price">{{ regular_price | money }}</s>
+              <span class="purchase-options__plan-price">{{ plan_price | money }}</span>
+            </div>
+          {%- endif -%}
         </div>
 
         <div class="purchase-options__frequency">
@@ -89,8 +116,9 @@
               class="purchase-options__radio"
               data-purchase-type="onetime"
             >
-            <span class="purchase-options__label">{{ block.settings.onetime_label }}</span>
+            <span class="purchase-options__label purchase-options__label--onetime">{{ block.settings.onetime_label }}</span>
           </div>
+          <span class="purchase-options__onetime-price">{{ regular_price | money }}</span>
         </div>
       </label>
 
@@ -140,17 +168,23 @@
   .purchase-options {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
   }
 
   .purchase-options__card {
+    position: relative;
     display: block;
-    border: 1px solid #E0D5C7;
+    border: 1px solid #9B9A9A;
     border-radius: 8px;
     padding: 16px;
+    overflow: hidden;
     cursor: pointer;
     transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .purchase-options__card--subscribe {
+    padding: 40px 16px 24px 16px;
   }
 
   .purchase-options__card[data-selected='true'] {
@@ -173,7 +207,7 @@
   .purchase-options__radio-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 
   .purchase-options__radio {
@@ -185,23 +219,59 @@
   }
 
   .purchase-options__label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 20px;
     color: #231F20;
   }
 
+  .purchase-options__label--onetime {
+    font-weight: 500;
+  }
+
   .purchase-options__badge {
-    display: inline-flex;
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    display: flex;
     align-items: center;
-    padding: 2px 8px;
+    justify-content: center;
+    padding: 6px 12px;
     background-color: #E9EA6B;
     color: #231F20;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.4;
-    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     white-space: nowrap;
+  }
+
+  .purchase-options__price-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .purchase-options__compare-price {
+    color: #8F928F;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .purchase-options__plan-price {
+    color: #C24829;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .purchase-options__onetime-price {
+    color: #231F20;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
   }
 
   .purchase-options__frequency {
@@ -212,7 +282,7 @@
   .purchase-options__frequency-select {
     width: 100%;
     padding: 10px 36px 10px 12px;
-    border: 1px solid #E0D5C7;
+    border: 1px solid #E0E6ED;
     border-radius: 6px;
     background-color: #fff;
     font-size: 14px;
@@ -246,16 +316,16 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
   .purchase-options__benefit {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
-    font-size: 13px;
-    line-height: 1.4;
-    color: #231F20;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #656363;
   }
 
   .purchase-options__benefit-icon {

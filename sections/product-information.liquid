@@ -341,15 +341,15 @@
 
   /* === PDP Buybox Figma Overrides === */
 
-  /* Product title: heading font, mobile-first sizing */
+  /* Product title: PP Eiko serif, mobile-first sizing */
   .product-information h1,
   .product-information .product-details h1 {
-    font-family: var(--font-heading--family);
-    font-style: var(--font-heading--style);
-    font-weight: var(--font-heading--weight);
+    font-family: 'PP Eiko', serif;
+    font-style: normal;
+    font-weight: 400;
     font-size: 28px;
     letter-spacing: -0.84px;
-    line-height: 1.1;
+    line-height: 1;
   }
 
   @media screen and (min-width: 750px) {
@@ -360,55 +360,74 @@
     }
   }
 
-  /* Variant picker pill buttons */
-  .product-information .variant-picker__option-label {
-    border: 1px solid #E0D5C7;
-    border-radius: 24px;
-    padding: 6px 14px;
-    font-size: 14px;
-    line-height: 1.4;
-    background-color: transparent;
+  /* Uppercase subtitle text below the title */
+  .product-information .product-subtitle {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+  }
+
+  /* Main price: PP Eiko display style */
+  .product-information .product-details .price {
+    font-family: 'PP Eiko', serif;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: -1.2px;
+    line-height: 1;
+  }
+
+  /* Variant picker option buttons */
+  .product-information .variant-option__button-label {
+    border: 1px solid #D1D1D4;
+    border-radius: 0;
+    background-color: #FFFFFF;
     color: #231F20;
     transition: border-color 0.15s ease, background-color 0.15s ease;
   }
 
-  .product-information .variant-picker__option-label:hover {
+  .product-information .variant-option__button-label:hover {
     border-color: #231F20;
   }
 
-  /* Selected variant pill */
-  .product-information .variant-picker__input:checked + .variant-picker__option-label,
-  .product-information .variant-picker__option-label[aria-checked='true'],
-  .product-information .variant-picker__option-label.is-selected {
-    border: 2px solid #2E5525;
-    background-color: #fff;
-    padding: 5px 13px; /* compensate for 2px border */
+  /* Selected count/size button — solid dark teal */
+  .product-information .variant-option__button-label:has(> input:checked) {
+    border: 2px solid #14495B;
+    background-color: #14495B;
+    color: #FFFFFF;
   }
 
-  /* Variant swatch circle inside pill */
-  .product-information .variant-picker__swatch {
+  /* Selected scent option with swatch — white with green border */
+  .product-information .variant-option__button-label--has-swatch:has(> input:checked) {
+    border: 2px solid #2E5525;
+    background-color: #FFFFFF;
+    color: #231F20;
+  }
+
+  /* Variant swatch chip inside option */
+  .product-information .variant-option__button-label .swatch {
     width: 24px;
     height: 24px;
-    border-radius: 50%;
     flex-shrink: 0;
   }
 
-  /* Variant option off-badge (e.g. % OFF) */
+  /* Variant option discount badge (e.g. 5% OFF / 10% OFF) */
   .product-information .variant-option__badge {
     position: absolute;
-    top: -8px;
+    top: -10px;
     inset-inline-end: -4px;
-    background-color: #E9EA6B;
+    background-color: #FFFFFF;
+    border: 1.5px solid #231F20;
     color: #231F20;
     font-size: 10px;
-    font-weight: 600;
-    line-height: 1;
-    padding: 2px 5px;
-    border-radius: 3px;
+    font-weight: 500;
+    line-height: 14px;
+    text-transform: uppercase;
+    padding: 4px 8px;
     pointer-events: none;
   }
 
-  .product-information .variant-picker__option {
+  .product-information .variant-option__button-label,
+  .product-information .variant-option {
     position: relative;
   }
 
@@ -430,18 +449,26 @@
     color: #231F20;
   }
 
-  /* Accordion summary headings — uppercase */
+  /* Accordion summary headings — PP Right Gothic, uppercase */
   .product-information .accordion summary,
   .product-information .accordion details > summary {
-    font-family: var(--font-heading--family);
-    font-style: var(--font-heading--style);
-    font-weight: var(--font-heading--weight);
+    font-family: 'PP Right Gothic', sans-serif;
+    font-style: normal;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 14px;
+    letter-spacing: 0;
+    font-size: 24px;
+    line-height: 1;
   }
 
-  /* Accordion divider lines between rows */
+  @media screen and (min-width: 750px) {
+    .product-information .accordion summary,
+    .product-information .accordion details > summary {
+      font-size: 32px;
+    }
+  }
+
+  /* Accordion divider lines between rows (border-bottom only) */
   .product-information .accordion details {
     border-bottom: 1px solid #E0D5C7;
   }
@@ -452,7 +479,9 @@
 
   /* Unit price styling */
   .product-information .unit-price {
+    font-family: var(--font-body--family);
     font-size: 14px;
+    letter-spacing: 0.14px;
     opacity: 0.6;
   }
 

@@ -21,21 +21,21 @@
   .shipping-banner {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
-    padding: 12px 0;
+    padding: 8px 0;
   }
 
   .shipping-banner__row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
   .shipping-banner__icon {
     flex-shrink: 0;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,8 +43,16 @@
   }
 
   .shipping-banner__icon svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .shipping-banner {
+      flex-direction: row;
+      justify-content: center;
+      gap: 32px;
+    }
   }
 
   .shipping-banner__text {

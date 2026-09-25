@@ -240,14 +240,39 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "purchase_options_hero": {
+              "type": "_purchase-options",
+              "settings": {
+                "subscribe_label": "Subscribe & Save 10%",
+                "onetime_label": "One Time Purchase",
+                "badge_text": "Best Value",
+                "benefit_1": "Save 10% on every order",
+                "benefit_2": "Skip, swap, or cancel anytime",
+                "benefit_3": "Free shipping on orders over $35"
+              },
+              "blocks": {}
+            },
+            "shipping_banner_hero": {
+              "type": "_shipping-banner",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_addon_hero": {
+              "type": "_product-addon",
+              "settings": {},
+              "blocks": {}
             }
           },
           "block_order": [
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
+            "purchase_options_hero",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "shipping_banner_hero",
+            "text_aEtTtq",
+            "product_addon_hero"
           ]
         },
         "disclosures": {
