@@ -462,6 +462,94 @@
         "padding-block-end": 80
       }
     },
+    "community_carousel_pZ8wKq": {
+      "type": "section",
+      "blocks": {
+        "carousel_main_jN4xRm": {
+          "type": "_community-carousel",
+          "settings": {
+            "heading_text": "Join the community @dropps",
+            "heading_color": "#231F20",
+            "button_text": "Shop Best Sellers",
+            "button_bg_color": "#9BD7D7",
+            "button_text_color": "#231F20"
+          },
+          "blocks": {
+            "slide_1": {
+              "type": "_community-slide",
+              "settings": {
+                "slide_type": "single_image",
+                "column_width": "narrow"
+              }
+            },
+            "slide_2": {
+              "type": "_community-slide",
+              "settings": {
+                "slide_type": "image_with_promo",
+                "column_width": "wide",
+                "promo_bg_color": "#482B73",
+                "promo_heading": "Odor & Stain Laundry Detergent",
+                "promo_heading_color": "#FFFFFF",
+                "promo_cta_text": "Shop Now",
+                "promo_cta_color": "#FFFFFF"
+              }
+            },
+            "slide_3": {
+              "type": "_community-slide",
+              "settings": {
+                "slide_type": "stacked_images",
+                "column_width": "narrow"
+              }
+            },
+            "slide_4": {
+              "type": "_community-slide",
+              "settings": {
+                "slide_type": "stacked_images",
+                "column_width": "narrow"
+              }
+            },
+            "slide_5": {
+              "type": "_community-slide",
+              "settings": {
+                "slide_type": "stacked_images",
+                "column_width": "narrow",
+                "promo_bg_color": "#E9EA6B",
+                "promo_heading": "1,000+\\n5 star\\nreviews",
+                "promo_heading_color": "#231F20"
+              }
+            },
+            "slide_6": {
+              "type": "_community-slide",
+              "settings": {
+                "slide_type": "promo_card",
+                "column_width": "narrow",
+                "promo_bg_color": "#C24829",
+                "promo_heading": "When you need extra cleansing",
+                "promo_heading_color": "#FCF9F5",
+                "promo_cta_text": "Shop Now \u2192",
+                "promo_cta_color": "#FCF9F5"
+              }
+            }
+          },
+          "block_order": ["slide_1", "slide_2", "slide_3", "slide_4", "slide_5", "slide_6"]
+        }
+      },
+      "block_order": [
+        "carousel_main_jN4xRm"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "flex-start",
+        "gap": 0,
+        "section_width": "page-width",
+        "background_media": "none",
+        "background_color": "#FCF9F5",
+        "toggle_overlay": false,
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -602,6 +690,7 @@
     "main",
     "how_we_compare_xK7mPq",
     "clean_ingredients_bar_rT4mWq",
+    "community_carousel_pZ8wKq",
     "product_recommendations_qggXJq"
   ]
 }

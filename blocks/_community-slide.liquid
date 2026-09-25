@@ -1,0 +1,598 @@
+{% liquid
+  assign slide_type = block.settings.slide_type
+  assign column_width = block.settings.column_width
+%}
+
+<div
+  class="community-slide community-slide--{{ column_width }}"
+  {{ block.shopify_attributes }}
+>
+  {% case slide_type %}
+    {% when 'single_image' %}
+      <div class="community-slide__single-image">
+        {% if block.settings.image_1 != blank %}
+          {{
+            block.settings.image_1
+            | image_url: width: 672
+            | image_tag:
+              sizes: '(min-width: 750px) 336px, 277px',
+              widths: '277,336,554,672',
+              loading: 'lazy',
+              class: 'community-slide__img'
+          }}
+        {% else %}
+          <div class="community-slide__placeholder"></div>
+        {% endif %}
+      </div>
+
+    {% when 'stacked_images' %}
+      <div class="community-slide__stacked">
+        <div class="community-slide__stacked-top">
+          {% if block.settings.image_1 != blank %}
+            {{
+              block.settings.image_1
+              | image_url: width: 784
+              | image_tag:
+                sizes: '(min-width: 750px) 392px, 323px',
+                widths: '323,392,646,784',
+                loading: 'lazy',
+                class: 'community-slide__img community-slide__img--cover'
+            }}
+          {% endif %}
+          {% if block.settings.image_2 != blank %}
+            {{
+              block.settings.image_2
+              | image_url: width: 648
+              | image_tag:
+                sizes: '(min-width: 750px) 324px, 277px',
+                widths: '277,324,554,648',
+                loading: 'lazy',
+                class: 'community-slide__img community-slide__img--overlay'
+            }}
+          {% endif %}
+        </div>
+        <div class="community-slide__stacked-bottom">
+          {% if block.settings.promo_bg_color != blank %}
+            <div
+              class="community-slide__stat-card"
+              style="background-color: {{ block.settings.promo_bg_color }};"
+            >
+              {% if block.settings.promo_heading != blank %}
+                <span
+                  class="community-slide__stat-text"
+                  {% if block.settings.promo_heading_color != blank %}
+                    style="color: {{ block.settings.promo_heading_color }};"
+                  {% endif %}
+                >
+                  {{- block.settings.promo_heading -}}
+                </span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    {% when 'promo_card' %}
+      <div
+        class="community-slide__promo-card"
+        {% if block.settings.promo_bg_color != blank %}
+          style="background-color: {{ block.settings.promo_bg_color }};"
+        {% endif %}
+      >
+        <div class="community-slide__promo-content">
+          {% if block.settings.promo_heading != blank %}
+            <p
+              class="community-slide__promo-heading"
+              {% if block.settings.promo_heading_color != blank %}
+                style="color: {{ block.settings.promo_heading_color }};"
+              {% endif %}
+            >
+              {{- block.settings.promo_heading -}}
+            </p>
+          {% endif %}
+
+          {% if block.settings.promo_product_image != blank %}
+            <div class="community-slide__promo-image">
+              {{
+                block.settings.promo_product_image
+                | image_url: width: 424
+                | image_tag:
+                  sizes: '198px',
+                  widths: '198,396',
+                  loading: 'lazy',
+                  class: 'community-slide__promo-img'
+              }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.promo_cta_text != blank %}
+            {% if block.settings.promo_cta_url != blank %}
+              <a
+                href="{{ block.settings.promo_cta_url }}"
+                class="community-slide__promo-cta"
+                {% if block.settings.promo_cta_color != blank %}
+                  style="color: {{ block.settings.promo_cta_color }};"
+                {% endif %}
+              >
+                {{- block.settings.promo_cta_text -}}
+              </a>
+            {% else %}
+              <span
+                class="community-slide__promo-cta"
+                {% if block.settings.promo_cta_color != blank %}
+                  style="color: {{ block.settings.promo_cta_color }};"
+                {% endif %}
+              >
+                {{- block.settings.promo_cta_text -}}
+              </span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+
+    {% when 'image_with_promo' %}
+      <div class="community-slide__image-promo">
+        <div class="community-slide__image-promo-top">
+          {% if block.settings.image_1 != blank %}
+            {{
+              block.settings.image_1
+              | image_url: width: 992
+              | image_tag:
+                sizes: '(min-width: 750px) 277px, 277px',
+                widths: '277,496,554,992',
+                loading: 'lazy',
+                class: 'community-slide__img community-slide__img--cover'
+            }}
+          {% endif %}
+          {% if block.settings.image_2 != blank %}
+            <div class="community-slide__badge-overlay">
+              {{
+                block.settings.image_2
+                | image_url: width: 300
+                | image_tag:
+                  sizes: '150px',
+                  widths: '150,300',
+                  loading: 'lazy',
+                  class: 'community-slide__badge-img'
+              }}
+            </div>
+          {% endif %}
+        </div>
+        <div
+          class="community-slide__image-promo-bottom"
+          {% if block.settings.promo_bg_color != blank %}
+            style="background-color: {{ block.settings.promo_bg_color }};"
+          {% endif %}
+        >
+          <div class="community-slide__image-promo-row">
+            {% if block.settings.promo_product_image != blank %}
+              <div class="community-slide__image-promo-thumb">
+                {{
+                  block.settings.promo_product_image
+                  | image_url: width: 160
+                  | image_tag:
+                    sizes: '(min-width: 750px) 57px, 75px',
+                    widths: '57,75,114,150,160',
+                    loading: 'lazy',
+                    class: 'community-slide__promo-thumb-img'
+                }}
+              </div>
+            {% endif %}
+            <div class="community-slide__image-promo-text">
+              {% if block.settings.promo_heading != blank %}
+                <p
+                  class="community-slide__image-promo-title"
+                  {% if block.settings.promo_heading_color != blank %}
+                    style="color: {{ block.settings.promo_heading_color }};"
+                  {% endif %}
+                >
+                  {{- block.settings.promo_heading -}}
+                </p>
+              {% endif %}
+              {% if block.settings.promo_cta_text != blank %}
+                {% if block.settings.promo_cta_url != blank %}
+                  <a
+                    href="{{ block.settings.promo_cta_url }}"
+                    class="community-slide__image-promo-link"
+                    {% if block.settings.promo_cta_color != blank %}
+                      style="color: {{ block.settings.promo_cta_color }};"
+                    {% endif %}
+                  >
+                    {{- block.settings.promo_cta_text -}}
+                  </a>
+                {% else %}
+                  <span
+                    class="community-slide__image-promo-link"
+                    {% if block.settings.promo_cta_color != blank %}
+                      style="color: {{ block.settings.promo_cta_color }};"
+                    {% endif %}
+                  >
+                    {{- block.settings.promo_cta_text -}}
+                  </span>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  {% endcase %}
+</div>
+
+{% stylesheet %}
+  .community-slide {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    overflow: hidden;
+    height: 435px;
+  }
+
+  .community-slide--narrow {
+    width: 277px;
+  }
+
+  .community-slide--wide {
+    width: 323px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .community-slide {
+      width: 277px;
+    }
+  }
+
+  /* Single image */
+  .community-slide__single-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .community-slide__single-image .community-slide__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .community-slide__placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+  }
+
+  /* Stacked images */
+  .community-slide__stacked {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .community-slide__stacked-top {
+    position: relative;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .community-slide__stacked-top .community-slide__img--cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .community-slide__stacked-top .community-slide__img--overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .community-slide__stacked-bottom {
+    flex: 0 0 auto;
+  }
+
+  .community-slide__stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 208px;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .community-slide__stat-text {
+    font-family: var(--font-heading--family), sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 48px;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: pre-line;
+  }
+
+  /* Promo card */
+  .community-slide__promo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+  }
+
+  .community-slide__promo-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .community-slide__promo-heading {
+    font-family: var(--font-body--family), serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    letter-spacing: -0.96px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .community-slide__promo-heading {
+      font-size: 24px;
+      line-height: 24px;
+      letter-spacing: -0.72px;
+    }
+  }
+
+  .community-slide__promo-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .community-slide__promo-img {
+    width: 198px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .community-slide__promo-cta {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 0;
+  }
+
+  /* Image with promo overlay */
+  .community-slide__image-promo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .community-slide__image-promo-top {
+    position: relative;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .community-slide__image-promo-top .community-slide__img--cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .community-slide__badge-overlay {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+  }
+
+  .community-slide__badge-img {
+    width: 150px;
+    height: auto;
+    transform: rotate(-0.1deg);
+  }
+
+  .community-slide__image-promo-bottom {
+    flex: 0 0 auto;
+    padding: 16px 14px;
+    border: 1px solid #231F20;
+    border-radius: 2px;
+  }
+
+  .community-slide__image-promo-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding-left: 6px;
+    overflow: hidden;
+  }
+
+  .community-slide__image-promo-thumb {
+    flex: 0 0 auto;
+  }
+
+  .community-slide__promo-thumb-img {
+    width: 57px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: 749px) {
+    .community-slide__promo-thumb-img {
+      width: 75px;
+    }
+  }
+
+  .community-slide__image-promo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .community-slide__image-promo-title {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .community-slide__image-promo-title {
+      font-family: var(--font-body--family), serif;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 32px;
+      letter-spacing: -0.96px;
+    }
+
+    .community-slide__image-promo-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .community-slide__image-promo-thumb {
+      display: none;
+    }
+
+    .community-slide__image-promo-bottom {
+      padding: 16px 14px;
+    }
+  }
+
+  .community-slide__image-promo-link {
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .community-slide__image-promo-link {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 12px 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Community slide",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slide type"
+    },
+    {
+      "type": "select",
+      "id": "slide_type",
+      "label": "Slide type",
+      "options": [
+        {
+          "value": "single_image",
+          "label": "Single image"
+        },
+        {
+          "value": "stacked_images",
+          "label": "Stacked images"
+        },
+        {
+          "value": "promo_card",
+          "label": "Promo card"
+        },
+        {
+          "value": "image_with_promo",
+          "label": "Image with promo"
+        }
+      ],
+      "default": "single_image"
+    },
+    {
+      "type": "select",
+      "id": "column_width",
+      "label": "Column width",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow (277px)"
+        },
+        {
+          "value": "wide",
+          "label": "Wide (323px)"
+        }
+      ],
+      "default": "narrow"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Primary image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Secondary image"
+    },
+    {
+      "type": "header",
+      "content": "Promo content"
+    },
+    {
+      "type": "color",
+      "id": "promo_bg_color",
+      "label": "Background color"
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "color",
+      "id": "promo_heading_color",
+      "label": "Heading color"
+    },
+    {
+      "type": "text",
+      "id": "promo_cta_text",
+      "label": "CTA text"
+    },
+    {
+      "type": "url",
+      "id": "promo_cta_url",
+      "label": "CTA link"
+    },
+    {
+      "type": "color",
+      "id": "promo_cta_color",
+      "label": "CTA color"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_product_image",
+      "label": "Product image"
+    }
+  ]
+}
+{% endschema %}

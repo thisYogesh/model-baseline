@@ -1,0 +1,343 @@
+{% liquid
+  assign slide_count = block.blocks.size
+  assign heading_text = block.settings.heading_text
+  assign heading_color = block.settings.heading_color
+  assign button_text = block.settings.button_text
+  assign button_url = block.settings.button_url
+  assign button_bg_color = block.settings.button_bg_color
+  assign button_text_color = block.settings.button_text_color
+%}
+
+{% capture slides_content %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+<community-carousel {{ block.shopify_attributes }}>
+  <div class="community-carousel__header">
+    {% if heading_text != blank %}
+      <h2
+        class="community-carousel__heading"
+        {% if heading_color != blank %}
+          style="color: {{ heading_color }};"
+        {% endif %}
+      >
+        {{- heading_text -}}
+      </h2>
+    {% endif %}
+
+    {% if button_text != blank %}
+      {% if button_url != blank %}
+        <a
+          href="{{ button_url }}"
+          class="community-carousel__cta community-carousel__cta--desktop"
+          style="
+            {% if button_bg_color != blank %}background-color: {{ button_bg_color }};{% endif %}
+            {% if button_text_color != blank %}color: {{ button_text_color }};{% endif %}
+          "
+        >
+          {{- button_text -}}
+        </a>
+      {% else %}
+        <span
+          class="community-carousel__cta community-carousel__cta--desktop"
+          style="
+            {% if button_bg_color != blank %}background-color: {{ button_bg_color }};{% endif %}
+            {% if button_text_color != blank %}color: {{ button_text_color }};{% endif %}
+          "
+        >
+          {{- button_text -}}
+        </span>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="community-carousel__track" ref="track">
+    {{ slides_content }}
+  </div>
+
+  {% if slide_count > 1 %}
+    <div class="community-carousel__dots" ref="dots">
+      {% for i in (1..slide_count) %}
+        <button
+          class="community-carousel__dot{% if forloop.first %} community-carousel__dot--active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+          on:click="/handleDotClick"
+          aria-label="Go to slide {{ forloop.index }}"
+        ></button>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if button_text != blank %}
+    {% if button_url != blank %}
+      <a
+        href="{{ button_url }}"
+        class="community-carousel__cta community-carousel__cta--mobile"
+        style="
+          {% if button_bg_color != blank %}background-color: {{ button_bg_color }};{% endif %}
+          {% if button_text_color != blank %}color: {{ button_text_color }};{% endif %}
+        "
+      >
+        {{- button_text -}}
+      </a>
+    {% else %}
+      <span
+        class="community-carousel__cta community-carousel__cta--mobile"
+        style="
+          {% if button_bg_color != blank %}background-color: {{ button_bg_color }};{% endif %}
+          {% if button_text_color != blank %}color: {{ button_text_color }};{% endif %}
+        "
+      >
+        {{- button_text -}}
+      </span>
+    {% endif %}
+  {% endif %}
+</community-carousel>
+
+{% stylesheet %}
+  community-carousel {
+    display: block;
+  }
+
+  .community-carousel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-block-end: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .community-carousel__header {
+      margin-block-end: 32px;
+    }
+  }
+
+  .community-carousel__heading {
+    font-family: var(--font-heading--family), sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .community-carousel__heading {
+      font-size: 56px;
+      line-height: 56px;
+      letter-spacing: -0.56px;
+    }
+  }
+
+  .community-carousel__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-family: var(--font-body--family), sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+  }
+
+  .community-carousel__cta--desktop {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .community-carousel__cta--desktop {
+      display: inline-flex;
+    }
+  }
+
+  .community-carousel__cta--mobile {
+    display: flex;
+    width: 100%;
+    margin-block-start: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .community-carousel__cta--mobile {
+      display: none;
+    }
+  }
+
+  .community-carousel__track {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .community-carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .community-carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-block-start: 24px;
+  }
+
+  .community-carousel__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .community-carousel__dot--active {
+    background-color: #231F20;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .community-carousel__dot {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  import { Component } from '@theme/component';
+
+  class CommunityCarousel extends Component {
+    connectedCallback() {
+      super.connectedCallback();
+      if (!this.refs.track) return;
+      this.slides = Array.from(this.refs.track.children);
+      this.dotButtons = this.refs.dots ? Array.from(this.refs.dots.children) : [];
+      this.activeIndex = 0;
+      this._boundScroll = this._onScroll.bind(this);
+      this.refs.track.addEventListener('scroll', this._boundScroll, { passive: true });
+    }
+
+    _onScroll() {
+      if (this._raf) cancelAnimationFrame(this._raf);
+      this._raf = requestAnimationFrame(() => {
+        const track = this.refs.track;
+        if (!track || this.slides.length === 0) return;
+        const trackLeft = track.getBoundingClientRect().left;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        for (let i = 0; i < this.slides.length; i++) {
+          const slideLeft = this.slides[i].getBoundingClientRect().left;
+          const distance = Math.abs(slideLeft - trackLeft);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = i;
+          }
+        }
+
+        if (closestIndex !== this.activeIndex) {
+          this.activeIndex = closestIndex;
+          this._updateDots();
+        }
+      });
+    }
+
+    _updateDots() {
+      for (let i = 0; i < this.dotButtons.length; i++) {
+        this.dotButtons[i].classList.toggle('community-carousel__dot--active', i === this.activeIndex);
+      }
+    }
+
+    handleDotClick(event) {
+      const index = parseInt(event.currentTarget.dataset.index, 10);
+      const slide = this.slides[index];
+      const track = this.refs.track;
+      if (!slide || !track) return;
+
+      const trackRect = track.getBoundingClientRect();
+      const slideRect = slide.getBoundingClientRect();
+      const scrollTarget = slideRect.left - trackRect.left + track.scrollLeft;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      track.scrollTo({
+        left: scrollTarget,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    }
+
+    disconnectedCallback() {
+      if (this.refs.track) {
+        this.refs.track.removeEventListener('scroll', this._boundScroll);
+      }
+      if (this._raf) cancelAnimationFrame(this._raf);
+      super.disconnectedCallback();
+    }
+  }
+
+  customElements.define('community-carousel', CommunityCarousel);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Community carousel",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_community-slide"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading",
+      "default": "Join the community @dropps"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#231F20"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Best Sellers"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#9BD7D7"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#231F20"
+    }
+  ]
+}
+{% endschema %}
