@@ -1,0 +1,233 @@
+{% doc %}
+  Cart Option Drawer
+
+  Renders the nested bottom-sheet shell inside the cart drawer dialog. The
+  sheet lists a product's variant options when the shopper taps an upsell
+  "Add" button or the quantity "+" on a multi-variant cart line. Variant rows
+  are populated client-side by assets/cart-option-drawer.js from the hidden
+  row template below.
+
+  @example
+  {% render 'cart-option-drawer' %}
+{% enddoc %}
+
+<script
+  type="module"
+  src="{{ 'cart-option-drawer.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+
+<cart-option-drawer
+  class="cart-option-drawer"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-skip-node-update
+>
+  <div
+    class="cart-option-drawer__overlay"
+    ref="overlay"
+    hidden
+  ></div>
+
+  <div
+    class="cart-option-drawer__panel"
+    ref="panel"
+    role="region"
+    aria-label="Product options"
+    hidden
+  >
+    <div class="cart-option-drawer__header">
+      <p class="cart-option-drawer__title">Choose an option</p>
+      <button
+        type="button"
+        class="cart-option-drawer__close"
+        on:click="/close"
+        aria-label="Close options"
+      >
+        <span class="svg-wrapper">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </span>
+      </button>
+    </div>
+
+    <div
+      class="cart-option-drawer__options"
+      ref="optionsList"
+    ></div>
+
+    <template ref="variantRowTemplate">
+      <div class="cart-option-drawer__row">
+        <div class="cart-option-drawer__row-info">
+          <span
+            class="cart-option-drawer__row-title"
+            data-variant-title
+          ></span>
+          <span
+            class="cart-option-drawer__row-price"
+            data-variant-price
+          ></span>
+        </div>
+        <button
+          type="button"
+          class="cart-option-drawer__row-add"
+          data-variant-add
+        >
+          Add
+        </button>
+      </div>
+    </template>
+  </div>
+</cart-option-drawer>
+
+{% stylesheet %}
+  .cart-option-drawer {
+    display: contents;
+  }
+
+  .cart-option-drawer__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background-color: rgb(35 31 32 / 40%);
+  }
+
+  .cart-option-drawer__overlay[hidden],
+  .cart-option-drawer__panel[hidden] {
+    display: none;
+  }
+
+  .cart-option-drawer__panel {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 70%;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fcf9f5;
+    border-block-start: 1px solid #f1e8da;
+    animation: cart-option-drawer-slide-up var(--animation-speed, 0.2s) var(--animation-easing, ease) forwards;
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+    .cart-option-drawer__panel {
+      animation: none;
+    }
+  }
+
+  @keyframes cart-option-drawer-slide-up {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .cart-option-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .cart-option-drawer__title {
+    margin: 0;
+    font-family: 'PP Neue Montreal', var(--font-body--family);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #231f20;
+  }
+
+  .cart-option-drawer__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #231f20;
+    cursor: pointer;
+  }
+
+  .cart-option-drawer__close .svg-wrapper,
+  .cart-option-drawer__close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .cart-option-drawer__options {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-option-drawer__message {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-option-drawer__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 12px;
+  }
+
+  .cart-option-drawer__row + .cart-option-drawer__row {
+    border-block-start: 1px solid #e0e6ed;
+  }
+
+  .cart-option-drawer__row-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .cart-option-drawer__row-title {
+    font-family: 'PP Neue Montreal', var(--font-body--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-option-drawer__row-price {
+    font-family: 'PP Neue Montreal', var(--font-body--family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-option-drawer__row-add {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: #14495b;
+    color: #fcf9f5;
+    font-family: 'PP Neue Montreal', var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    text-transform: uppercase;
+  }
+
+  .cart-option-drawer__row-add:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+{% endstylesheet %}

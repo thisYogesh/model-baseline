@@ -43,6 +43,11 @@
   type="module"
   fetchpriority="low"
 ></script>
+<script
+  src="{{ 'cart-subscription-toggle.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
 
 {% render 'text-component-shimmer-styles' %}
 
@@ -152,7 +157,15 @@
                 ref="cartItemRows[]"
                 data-parent-key="{{ item.parent_relationship.parent.key }}"
                 data-key="{{ item.key }}"
+                data-variant-count="{{ item.product.variants.size }}"
+                data-product-url="{{ item.product.url | split: '?' | first }}"
               >
+                {%- liquid
+                  assign show_subscription_card = false
+                  if context == 'drawer' and item.product.selling_plan_groups.size > 0
+                    assign show_subscription_card = true
+                  endif
+                -%}
                 <td
                   class="cart-items__media"
                   role="cell"
@@ -244,7 +257,7 @@
                               <dt class="visually-hidden">{{ option.name }}:</dt>
                               <dd>
                                 {{- option.value -}}
-                                {%- if forloop.last != true %},&nbsp;{% endif -%}
+                                {%- if forloop.last != true %}&nbsp;|&nbsp;{% endif -%}
                               </dd>
                             </div>
                           {%- endfor -%}
@@ -281,7 +294,7 @@
                         </dl>
                       {%- endif -%}
 
-                      {%- if item.selling_plan_allocation -%}
+                      {%- if item.selling_plan_allocation and show_subscription_card == false -%}
                         <p>{{ item.selling_plan_allocation.selling_plan.name }}</p>
                       {%- endif -%}
 
@@ -297,6 +310,59 @@
                           {%- endfor -%}
                         </ul>
                       {%- endif -%}
+                    {%- endif -%}
+
+                    {%- if show_subscription_card -%}
+                      {%- liquid
+                        assign sp_plan = item.product.selling_plan_groups.first.selling_plans.first
+                        if item.selling_plan_allocation
+                          assign sp_plan = item.selling_plan_allocation.selling_plan
+                        endif
+                        assign sp_percent = 0
+                        assign sp_adjustment = sp_plan.price_adjustments.first
+                        if sp_adjustment.value_type == 'percentage'
+                          assign sp_percent = sp_adjustment.value
+                        endif
+                      -%}
+                      <div class="cart-items__subscription">
+                        <div class="cart-items__subscription-details">
+                          <p class="cart-items__subscription-title">
+                            Subscribe &amp; Save
+                            {%- if sp_percent > 0 -%}
+                              <span class="cart-items__subscription-discount"> - {{ sp_percent }}% off</span>
+                            {%- endif -%}
+                          </p>
+                          <div class="cart-items__subscription-plan">
+                            <p class="cart-items__subscription-caption">Auto-delivery every</p>
+                            <p class="cart-items__subscription-frequency{% if item.selling_plan_allocation %} cart-items__subscription-frequency--active{% endif %}">
+                              {{ sp_plan.name }}
+                            </p>
+                          </div>
+                        </div>
+                        <cart-subscription-toggle
+                          class="cart-items__subscription-toggle"
+                          data-line-key="{{ item.key }}"
+                          data-quantity="{{ item.quantity }}"
+                          data-selling-plan-id="{{ sp_plan.id }}"
+                        >
+                          <label class="subscription-toggle">
+                            <input
+                              type="checkbox"
+                              class="subscription-toggle__input visually-hidden"
+                              ref="toggleInput"
+                              on:change="/onToggle"
+                              {% if item.selling_plan_allocation %}
+                                checked
+                              {% endif %}
+                            >
+                            <span
+                              class="subscription-toggle__track"
+                              aria-hidden="true"
+                            ></span>
+                            <span class="visually-hidden">Subscribe and save</span>
+                          </label>
+                        </cart-subscription-toggle>
+                      </div>
                     {%- endif -%}
                   </div>
 
@@ -362,7 +428,7 @@
                     %}
 
                     <button
-                      class="button cart-items__remove"
+                      class="button cart-items__remove{% if context == 'drawer' %} cart-items__remove--text{% endif %}"
                       type="button"
                       aria-label="{{ 'accessibility.remove_item' | t: title: item.title | escape }}"
                       on:click="/onLineItemRemove/{{ item.index | plus: 1 }}"
@@ -371,7 +437,11 @@
                         hidden
                       {% endif %}
                     >
-                      {{- 'icon-delete.svg' | inline_asset_content -}}
+                      {%- if context == 'drawer' -%}
+                        <span class="cart-items__remove-text">Remove</span>
+                      {%- else -%}
+                        {{- 'icon-delete.svg' | inline_asset_content -}}
+                      {%- endif -%}
                       <span class="visually-hidden">{{ 'accessibility.remove' | t }}</span>
                     </button>
                   </div>
@@ -412,6 +482,12 @@
                   <text-component value="{{ price | strip_html }}"
                     ><bdi>{{ price }}</bdi></text-component
                   >
+                  {%- if context == 'drawer' and item.variant.compare_at_price > item.final_price -%}
+                    {%- assign line_compare_at = item.variant.compare_at_price | times: item.quantity -%}
+                    <s class="cart-items__compare-price"
+                      ><bdi>{{ line_compare_at | money }}</bdi></s
+                    >
+                  {%- endif -%}
                   {%- if item.unit_price_measurement -%}
                     <div class="cart-items__price-unit cart-secondary-typography">
                       {% render 'unit-price', price: unit_price, measurement: item.unit_price_measurement %}
@@ -1013,5 +1089,220 @@
       filter: none;
       opacity: 1;
     }
+  }
+
+  /* ---- Cart drawer Figma overrides ---- */
+
+  .cart-drawer__items .cart-items__table-row,
+  .cart-drawer__items .cart-items__table-row--full-width-variants {
+    grid-template-columns: 72px minmax(0, 1fr) auto;
+    column-gap: 16px;
+  }
+
+  .cart-drawer__items .cart-items__media-container {
+    width: 72px;
+    height: 72px;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1e8da;
+  }
+
+  .cart-drawer__items .cart-items__media-image {
+    object-fit: contain;
+  }
+
+  .cart-drawer__items .cart-items__title {
+    font-family: 'PP Neue Montreal', var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #231f20;
+  }
+
+  .cart-drawer__items .cart-items__price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-drawer__items .cart-items__compare-price {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration: line-through;
+    color: #231f20;
+  }
+
+  /* The Figma price stack (line price + compare-at) lives in the price cell —
+     the per-unit sale price row would duplicate it in the drawer */
+  .cart-drawer__items .cart-items__unit-price-wrapper {
+    display: none;
+  }
+
+  .cart-drawer__items .cart-items__variants,
+  .cart-drawer__items .cart-items__variants dd {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  /* Subscription card */
+  .cart-items__subscription {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    margin-block-start: 10px;
+    border: 1px solid #e0e6ed;
+    background-color: var(--color-background, #ffffff);
+  }
+
+  .cart-items__subscription-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .cart-items__subscription .cart-items__subscription-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-items__subscription .cart-items__subscription-discount {
+    font-weight: 500;
+  }
+
+  .cart-items__subscription-plan {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cart-items__subscription .cart-items__subscription-caption {
+    margin: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #656363;
+  }
+
+  .cart-items__subscription .cart-items__subscription-frequency {
+    margin: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-items__subscription .cart-items__subscription-frequency--active {
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cart-items__subscription-toggle {
+    flex-shrink: 0;
+  }
+
+  .subscription-toggle {
+    display: inline-flex;
+    cursor: pointer;
+  }
+
+  .subscription-toggle__track {
+    display: block;
+    position: relative;
+    width: 38px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #8f928f;
+    transition: background-color var(--animation-speed, 0.2s) var(--animation-easing, ease);
+  }
+
+  .subscription-toggle__track::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 2px;
+    inset-inline-start: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transition: translate var(--animation-speed, 0.2s) var(--animation-easing, ease);
+  }
+
+  .subscription-toggle__input:checked + .subscription-toggle__track {
+    background-color: #14495b;
+  }
+
+  .subscription-toggle__input:checked + .subscription-toggle__track::after {
+    translate: 18px 0;
+  }
+
+  .subscription-toggle__input:disabled + .subscription-toggle__track {
+    opacity: 0.6;
+  }
+
+  /* Quantity selector + remove row */
+  .cart-drawer__items .cart-items__quantity {
+    width: 100%;
+    margin-block-start: 16px;
+  }
+
+  .cart-drawer__items .cart-items__quantity-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .cart-drawer__items .cart-items__quantity .quantity-selector {
+    width: 128px;
+    height: 40px;
+    border: 1px solid #e0e6ed;
+    border-radius: 0;
+    background-color: #ffffff;
+    color: #231f20;
+  }
+
+  .cart-drawer__items .cart-items__quantity .quantity-selector button {
+    width: 40px;
+    height: 38px;
+    color: #231f20;
+  }
+
+  .cart-drawer__items .cart-items__quantity .quantity-selector input[type='number'] {
+    width: 46px;
+    border-inline: 1px solid #e0e6ed;
+    border-radius: 0;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #231f20;
+  }
+
+  .cart-items__remove--text {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    font-family: 'PP Neue Montreal', var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: #231f20;
   }
 {% endstylesheet %}

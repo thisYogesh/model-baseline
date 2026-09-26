@@ -1,0 +1,200 @@
+{% doc %}
+  Cart Upsell Carousel
+
+  Renders the yellow upsell strip pinned at the bottom of the cart drawer.
+  Products come from the "Cart drawer" theme settings' upsell collection, with
+  a fallback to the 'best-sellers' collection, then all products.
+
+  When the cart has items but sits below a bundle-savings tier, the heading
+  becomes the unlock message (e.g. "Add 1 more to unlock 5%"); otherwise it
+  shows the default upsell heading (e.g. "Best Sellers").
+
+  @example
+  {% render 'cart-upsell-carousel' %}
+{% enddoc %}
+
+{%- liquid
+  assign upsell_products = settings.cart_upsell_collection.products
+  if upsell_products.size == 0
+    assign upsell_products = collections['best-sellers'].products
+  endif
+  if upsell_products.size == 0
+    assign upsell_products = collections.all.products
+  endif
+
+  assign tier_1_qty = settings.bundle_tier_1_quantity | default: 2
+  assign tier_1_pct = settings.bundle_tier_1_percent | default: 5
+  assign tier_2_qty = settings.bundle_tier_2_quantity | default: 3
+  assign tier_2_pct = settings.bundle_tier_2_percent | default: 10
+
+  assign upsell_heading = settings.cart_upsell_heading | default: 'Best Sellers'
+
+  if cart.item_count > 0
+    assign unlock_count = 0
+    if cart.item_count < tier_1_qty
+      assign unlock_count = tier_1_qty | minus: cart.item_count
+      assign unlock_pct = tier_1_pct
+    elsif cart.item_count < tier_2_qty
+      assign unlock_count = tier_2_qty | minus: cart.item_count
+      assign unlock_pct = tier_2_pct
+    endif
+
+    if unlock_count > 0
+      assign unlock_template = settings.cart_upsell_unlock_heading | default: 'Add [count] more to unlock [percent]%'
+      assign upsell_heading = unlock_template | replace: '[count]', unlock_count | replace: '[percent]', unlock_pct
+    endif
+  endif
+-%}
+
+{%- if upsell_products.size > 0 -%}
+  <div class="cart-upsell">
+    <h3 class="cart-upsell__heading">{{ upsell_heading }}</h3>
+
+    <div class="cart-upsell__list">
+      {%- for product in upsell_products limit: 3 -%}
+        {%- assign upsell_variant = product.selected_or_first_available_variant -%}
+        <div class="cart-upsell__item">
+          <div class="cart-upsell__media">
+            {%- if product.featured_image -%}
+              {{
+                product.featured_image
+                | image_url: width: 216
+                | image_tag: widths: '72,144,216', sizes: '72px', loading: 'lazy', alt: product.featured_image.alt, class: 'cart-upsell__image'
+              }}
+            {%- endif -%}
+          </div>
+          <div class="cart-upsell__details">
+            <p class="cart-upsell__title">{{ product.title }}</p>
+            {%- unless product.has_only_default_variant -%}
+              <p class="cart-upsell__meta">{{ upsell_variant.options | join: ' | ' }}</p>
+            {%- endunless -%}
+            <button
+              type="button"
+              class="cart-upsell__add"
+              data-option-drawer-trigger
+              data-product-url="{{ product.url | split: '?' | first }}"
+              data-variant-count="{{ product.variants.size }}"
+              data-variant-id="{{ upsell_variant.id }}"
+              aria-label="Add {{ product.title | escape }} to cart"
+            >
+              Add&nbsp;&nbsp;|&nbsp;&nbsp;{{ product.price | money }}
+            </button>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .cart-upsell {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    padding: 24px 20px;
+    background-color: #e9ea6b;
+    margin-block-start: auto;
+    flex-shrink: 0;
+    text-align: start;
+  }
+
+  .cart-upsell__heading {
+    margin: 0;
+    font-family: 'PP Right Gothic', var(--font-heading--family);
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #231f20;
+  }
+
+  .cart-upsell__list {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .cart-upsell__item {
+    display: flex;
+    gap: 16px;
+    flex: 0 0 auto;
+    width: 260px;
+  }
+
+  .cart-upsell__item + .cart-upsell__item {
+    border-inline-start: 1px solid #8f928f;
+    padding-inline-start: 16px;
+  }
+
+  .cart-upsell__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #f1e8da;
+  }
+
+  .cart-upsell__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cart-upsell__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .cart-upsell__title {
+    margin: 0;
+    font-family: 'PP Neue Montreal', var(--font-body--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #231f20;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cart-upsell__meta {
+    margin: 0;
+    font-family: 'PP Neue Montreal', var(--font-body--family);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-upsell__add {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: #14495b;
+    color: #fcf9f5;
+    font-family: 'PP Neue Montreal', var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    text-transform: uppercase;
+  }
+
+  .cart-upsell__add:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+{% endstylesheet %}

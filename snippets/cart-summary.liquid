@@ -8,6 +8,99 @@
 {% render 'text-component-shimmer-styles' %}
 {% render 'cart-typography-styles' %}
 
+{%- liquid
+  # Total savings: per-line compare-at savings + line discounts + cart-level discounts.
+  assign cart_savings = 0
+  for item in cart.items
+    if item.variant.compare_at_price > item.original_price
+      assign line_compare = item.variant.compare_at_price | times: item.quantity
+    else
+      assign line_compare = item.original_price | times: item.quantity
+    endif
+    assign line_saving = line_compare | minus: item.final_line_price
+    if line_saving > 0
+      assign cart_savings = cart_savings | plus: line_saving
+    endif
+  endfor
+  for discount in cart.cart_level_discount_applications
+    assign cart_savings = cart_savings | plus: discount.total_allocated_amount
+  endfor
+
+  # Bundle savings tiers
+  assign tier_1_qty = settings.bundle_tier_1_quantity | default: 2
+  assign tier_1_pct = settings.bundle_tier_1_percent | default: 5
+  assign tier_2_qty = settings.bundle_tier_2_quantity | default: 3
+  assign tier_2_pct = settings.bundle_tier_2_percent | default: 10
+  assign bundle_badge = settings.cart_no_discount_badge | default: 'No bundle discount yet'
+
+  if cart.item_count < tier_1_qty
+    assign bundle_remaining = tier_1_qty | minus: cart.item_count
+    assign bundle_target_pct = tier_1_pct
+  elsif cart.item_count < tier_2_qty
+    assign bundle_remaining = tier_2_qty | minus: cart.item_count
+    assign bundle_target_pct = tier_2_pct
+    assign bundle_badge = tier_1_pct | append: '% bundle discount'
+  else
+    assign bundle_remaining = 0
+    assign bundle_badge = tier_2_pct | append: '% bundle discount'
+  endif
+
+  if bundle_remaining > 0
+    capture bundle_message
+      echo 'Add ' | append: bundle_remaining
+      if bundle_remaining == 1
+        echo ' more item to save '
+      else
+        echo ' more items to save '
+      endif
+      echo bundle_target_pct | append: '% on your order'
+    endcapture
+  else
+    capture bundle_message
+      echo "You've unlocked " | append: tier_2_pct | append: '% off your order'
+    endcapture
+  endif
+-%}
+
+<div class="cart-summary__top">
+  <div class="cart-summary__subtotal">
+    <span class="cart-summary__subtotal-label">Subtotal</span>
+    <span class="cart-summary__subtotal-value"
+      ><bdi>{{ cart.items_subtotal_price | money }}</bdi
+    ></span>
+  </div>
+
+  {%- if cart_savings > 0 -%}
+    <div class="cart-summary__saving">
+      <span class="cart-summary__saving-label">You&rsquo;re saving</span>
+      <span class="cart-summary__saving-value"
+        ><bdi>-{{ cart_savings | money }}</bdi
+      ></span>
+    </div>
+  {%- endif -%}
+
+  <div class="cart-savings">
+    <div class="cart-savings__header">
+      <p class="cart-savings__text">{{ bundle_message }}</p>
+      <span class="cart-savings__badge">{{ bundle_badge }}</span>
+    </div>
+    <div class="cart-savings__track">
+      <img
+        src="{{ 'progress-bar-row.svg' | asset_url }}"
+        alt=""
+        width="336"
+        height="20"
+        loading="lazy"
+        class="cart-savings__track-image"
+      >
+      <div class="cart-savings__labels">
+        <span class="cart-savings__label cart-savings__label--tier1">{{ tier_1_qty }} items &middot; {{ tier_1_pct }}%</span>
+        <span class="cart-savings__label">{{ tier_2_qty }} items &middot; {{ tier_2_pct }}%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="cart-totals">
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart-totals__original-container cart-primary-typography">
@@ -284,6 +377,11 @@
     </div>
   {% endif %}
 </div>
+
+{%- assign shipping_note = settings.cart_free_shipping_text -%}
+{%- if shipping_note != blank -%}
+  <p class="cart-summary__shipping-note">{{ shipping_note }}</p>
+{%- endif -%}
 
 {% stylesheet %}
   .cart-actions {
@@ -614,5 +712,140 @@
     .cart-summary--extend {
       height: 100%;
     }
+  }
+
+  /* ---- Cart drawer Figma overrides ---- */
+
+  .cart-summary__top {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .cart-summary__subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .cart-summary__subtotal-label {
+    font-family: 'PP Neue Montreal', var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-summary__subtotal-value {
+    font-family: 'PP Neue Montreal', var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #231f20;
+  }
+
+  .cart-summary__saving {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #5c856b;
+  }
+
+  .cart-savings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background-color: #fcf9f5;
+  }
+
+  .cart-savings__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .cart-savings__text {
+    margin: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #231f20;
+  }
+
+  .cart-savings__badge {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    background-color: #f1e8da;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: #231f20;
+  }
+
+  .cart-savings__track {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cart-savings__track .cart-savings__track-image {
+    width: 100%;
+    height: 20px;
+  }
+
+  .cart-savings__labels {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cart-savings__label {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.12px;
+    color: #231f20;
+  }
+
+  .cart-savings__label--tier1 {
+    position: absolute;
+    inset-inline-start: 50%;
+    translate: -50% 0;
+  }
+
+  /* Hide the duplicate subtotal row in the drawer (rendered above instead) */
+  .cart-drawer__summary .cart-totals__original {
+    display: none;
+  }
+
+  .cart-drawer__summary .cart__ctas .cart__checkout-button {
+    height: 40px;
+    padding: 12px 24px;
+    background-color: #9bd7d7;
+    color: #231f20;
+    font-family: 'PP Neue Montreal', var(--font-subheading--family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .cart-summary__shipping-note {
+    width: 100%;
+    margin: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.12px;
+    text-align: center;
+    color: #231f20;
   }
 {% endstylesheet %}
