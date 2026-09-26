@@ -319,6 +319,8 @@ class CartOptionDrawer extends Component {
   }
 }
 
-if (!customElements.get('cart-option-drawer')) {
-  customElements.define('cart-option-drawer', CartOptionDrawer);
+// Tag ends in `-component` so component.js scopes this element's refs away
+// from the parent theme-drawer even before this module has loaded.
+if (!customElements.get('cart-option-drawer-component')) {
+  customElements.define('cart-option-drawer-component', CartOptionDrawer);
 }

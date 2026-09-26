@@ -17,7 +17,12 @@
   fetchpriority="low"
 ></script>
 
-<cart-option-drawer
+{% comment %}
+  Tag must end in `-component` so component.js treats it as a ref-scoping
+  boundary even before its module loads — otherwise its ref="panel" div leaks
+  into the parent theme-drawer's refs and breaks ThemeDrawer.open().
+{% endcomment %}
+<cart-option-drawer-component
   class="cart-option-drawer"
   data-money-format="{{ shop.money_format | escape }}"
   data-skip-node-update
@@ -76,7 +81,7 @@
       </div>
     </template>
   </div>
-</cart-option-drawer>
+</cart-option-drawer-component>
 
 {% stylesheet %}
   .cart-option-drawer {
