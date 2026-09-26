@@ -240,14 +240,39 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "purchase_options_hero": {
+              "type": "_purchase-options",
+              "settings": {
+                "subscribe_label": "Subscribe & Save 10%",
+                "onetime_label": "One Time Purchase",
+                "badge_text": "Best Value",
+                "benefit_1": "Save 10% on every order",
+                "benefit_2": "Skip, swap, or cancel anytime",
+                "benefit_3": "Free shipping on orders over $35"
+              },
+              "blocks": {}
+            },
+            "shipping_banner_hero": {
+              "type": "_shipping-banner",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_addon_hero": {
+              "type": "_product-addon",
+              "settings": {},
+              "blocks": {}
             }
           },
           "block_order": [
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
+            "purchase_options_hero",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "shipping_banner_hero",
+            "text_aEtTtq",
+            "product_addon_hero"
           ]
         },
         "disclosures": {
@@ -270,6 +295,196 @@
         "gap": 48,
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "how_we_compare_xK7mPq": {
+      "type": "how-we-compare",
+      "settings": {
+        "heading": "How We Compare",
+        "format_label": "Format",
+        "feature_1_label": "Superior Cleaning 1",
+        "feature_2_label": "Gentle for both eczema and psoriasis*",
+        "feature_3_label": "USDA Certified Biobased & Leaping Bunny Certified",
+        "feature_4_label": "Certified B Corp",
+        "feature_5_label": "No skin contact during handling",
+        "feature_6_label": "Curbside-recyclable paperboard & packaging",
+        "feature_7_label": "Formulated & manufactured in the USA",
+        "footnote": "\u2020 Better stain removal on the most consumer-relevant stains. * Applies to Sensitive Skin and Free + Clear Unscented Laundry Detergents. Recognized by the National Eczema Association and National Psoriasis Foundation. \u00b6 Requires both USDA Certified Biobased Product and Leaping Bunny Cruelty-free certification to receive a checkmark. \u2021 Tablets, powders, and sheets require direct hand contact with formula at time of use. Dropps pod film dissolves completely in the wash cycle \u2014 formula never contacts skin during handling. \u00a7 Some competitor packaging is industrially compostable, which requires composting facility access \u2014 not curbside recyclable. Certification and manufacturing data sourced from brand websites, June 2026.",
+        "background_color": "#FCF9F5",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "competitor_dropps": {
+          "type": "competitor",
+          "settings": {
+            "logo_asset": "dropps-logo.svg",
+            "brand_name": "Dropps",
+            "format_text": "Liquid Pod",
+            "is_highlighted": true,
+            "logo_opacity": 100,
+            "feature_1": true,
+            "feature_2": true,
+            "feature_3": true,
+            "feature_4": true,
+            "feature_5": true,
+            "feature_6": true,
+            "feature_7": true
+          }
+        },
+        "competitor_blueland": {
+          "type": "competitor",
+          "settings": {
+            "logo_asset": "logo-container.svg",
+            "brand_name": "Blueland",
+            "format_text": "Tablet",
+            "is_highlighted": false,
+            "logo_opacity": 100,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": true,
+            "feature_4": true,
+            "feature_5": false,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_seventh_gen": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/seventh-generation-1-mobile-52628908.png",
+            "brand_name": "Seventh Generation",
+            "format_text": "Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 50,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": true,
+            "feature_5": false,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_mollys": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/ms-logo-transparent-220x-2x-bfc196b7-d70e-4285-b0be-b06ec38c233b-1-mobile-52628920.png",
+            "brand_name": "Molly's Suds",
+            "format_text": "Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 40,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": true,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_cascade": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/logo-1-mobile-52628932.png",
+            "brand_name": "Cascade",
+            "format_text": "Liquid & Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 80,
+            "feature_1": true,
+            "feature_2": true,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": true,
+            "feature_6": false,
+            "feature_7": true
+          }
+        },
+        "competitor_finish": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/main-logo-1-mobile-52628944.png",
+            "brand_name": "Finish",
+            "format_text": "Liquid & Powder Pod",
+            "is_highlighted": false,
+            "logo_opacity": 70,
+            "feature_1": true,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": false,
+            "feature_6": true,
+            "feature_7": false
+          }
+        },
+        "competitor_method": {
+          "type": "competitor",
+          "settings": {
+            "logo": "shopify://shop_images/61x-sktjoal-ac-sf462-108-1-mobile-52628956.png",
+            "brand_name": "Method",
+            "format_text": "Tablet",
+            "is_highlighted": false,
+            "logo_opacity": 80,
+            "feature_1": false,
+            "feature_2": false,
+            "feature_3": false,
+            "feature_4": false,
+            "feature_5": false,
+            "feature_6": true,
+            "feature_7": false
+          }
+        }
+      },
+      "block_order": [
+        "competitor_dropps",
+        "competitor_blueland",
+        "competitor_seventh_gen",
+        "competitor_mollys",
+        "competitor_cascade",
+        "competitor_finish",
+        "competitor_method"
+      ]
+    },
+    "clean_ingredients_bar_rT4mWq": {
+      "type": "section",
+      "blocks": {
+        "ingredients_content_xY7zAb": {
+          "type": "_clean-ingredients-bar",
+          "settings": {
+            "heading": "Our Formula",
+            "background_color": "#E9EA6B",
+            "cta_label": "View all ingredients",
+            "row_1_label": "Biobased",
+            "row_1_description": "USDA Certified Biobased with 58% derived from renewable resources.",
+            "row_2_label": "Pod Film",
+            "row_2_description": "Water-soluble PVOH that dissolves and biodegrades.",
+            "row_3_label": "Made With",
+            "row_3_description": "Five specialized enzymes and three surfactants, each with a dirty job.",
+            "row_4_label": "Never Made With",
+            "row_4_description": "No Phosphates\nNo Dyes\nNo Chlorine\nNo Parabens\nNo SLS (Sodium Lauryl Sulfate)",
+            "badge_1_label": "B Corp Certified",
+            "badge_2_image": "shopify://shop_images/img-3664-2-1-mobile-5978318.png",
+            "badge_2_label": "Leaping Bunny",
+            "badge_3_image": "shopify://shop_images/epa-badge-white-2-mobile-5978314.png",
+            "badge_3_label": "EPA Safer Choice"
+          }
+        }
+      },
+      "block_order": [
+        "ingredients_content_xY7zAb"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "background_media": "image",
+        "background_image": "shopify://shop_images/clean-ingredients-bar-mobile-52628791.jpg",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "product_recommendations_qggXJq": {
@@ -410,6 +625,8 @@
   },
   "order": [
     "main",
+    "how_we_compare_xK7mPq",
+    "clean_ingredients_bar_rT4mWq",
     "product_recommendations_qggXJq"
   ]
 }
