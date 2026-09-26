@@ -1,0 +1,80 @@
+<div class="shipping-banner" {{ block.shopify_attributes }}>
+  {% if block.settings.text_1 != blank %}
+    <div class="shipping-banner__item">
+      <span class="shipping-banner__icon">
+        {{- 'fi-rs-truck-side.svg' | inline_asset_content -}}
+      </span>
+      <span class="shipping-banner__text">{{ block.settings.text_1 }}</span>
+    </div>
+  {% endif %}
+  {% if block.settings.text_2 != blank %}
+    <div class="shipping-banner__item">
+      <span class="shipping-banner__icon">
+        {{- 'fi-rs-refresh.svg' | inline_asset_content -}}
+      </span>
+      <span class="shipping-banner__text">{{ block.settings.text_2 }}</span>
+    </div>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .shipping-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-block: 8px;
+  }
+
+  .shipping-banner__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shipping-banner__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  .shipping-banner__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .shipping-banner__text {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .shipping-banner {
+      flex-direction: row;
+      justify-content: center;
+      gap: 32px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shipping banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "First message",
+      "default": "Free Shipping Over $35"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Second message",
+      "default": "30 Day Money-Back Guarantee"
+    }
+  ]
+}
+{% endschema %}

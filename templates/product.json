@@ -16,16 +16,17 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
+            "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
             "icons_style": "arrow",
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 72,
+            "thumbnail_radius": 2,
+            "aspect_ratio": "1",
             "constrain_to_viewport": true,
             "media_fit": "contain",
             "media_radius": 0,
@@ -111,11 +112,11 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-heading--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "tight",
+                    "letter_spacing": "tight",
                     "case": "none",
                     "wrap": "pretty",
                     "background": false,
@@ -128,43 +129,66 @@
                   },
                   "blocks": {}
                 },
-                "price_tVjtKg": {
-                  "type": "price",
+                "text_subtitle_dropps": {
+                  "type": "text",
                   "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": true,
-                    "show_tax_info": true,
-                    "type_preset": "paragraph",
+                    "text": "<p>Banishes odors and lifts set-in stains, even in cold water.</p>",
                     "width": "100%",
+                    "max_width": "normal",
                     "alignment": "left",
+                    "type_preset": "custom",
                     "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
+                    "font_size": "0.875rem",
+                    "line_height": "tight",
                     "letter_spacing": "normal",
-                    "case": "none",
-                    "padding-block-start": 4,
+                    "case": "uppercase",
+                    "wrap": "pretty",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "review_dropps": {
+                  "type": "review",
+                  "settings": {
+                    "stars_style": "shaded",
+                    "show_number": true,
+                    "type_preset": "paragraph",
+                    "width": "100%",
+                    "alignment": "left"
                   },
                   "blocks": {}
                 }
               },
               "block_order": [
                 "text_xpVMaM",
-                "price_tVjtKg"
+                "text_subtitle_dropps",
+                "review_dropps"
               ]
             },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
+            "price_tVjtKg": {
+              "type": "price",
               "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color3 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "custom",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-heading--family)",
+                "font_size": "2.5rem",
+                "line_height": "tight",
+                "letter_spacing": "tight",
+                "case": "none",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -172,7 +196,7 @@
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
-                "show_swatches": false,
+                "show_swatches": true,
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -216,30 +240,78 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
+            "accordion_dropps": {
+              "type": "accordion",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h4"
               },
-              "blocks": {}
+              "blocks": {
+                "accordion_row_description": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Description",
+                    "open_by_default": true
+                  },
+                  "blocks": {
+                    "text_description": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.description }}",
+                        "width": "100%"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_description"
+                  ]
+                },
+                "accordion_row_ingredients": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Ingredients"
+                  },
+                  "blocks": {
+                    "text_ingredients": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Made with plant and mineral-based ingredients. See packaging for the full ingredient list.</p>",
+                        "width": "100%"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_ingredients"
+                  ]
+                },
+                "accordion_row_impact": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Impact"
+                  },
+                  "blocks": {
+                    "text_impact": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Low-waste packaging, cruelty-free formulas, and carbon-neutral shipping. Learn more about our impact.</p>",
+                        "width": "100%"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_impact"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_description",
+                "accordion_row_ingredients",
+                "accordion_row_impact"
+              ]
             },
             "purchase_options_hero": {
               "type": "_purchase-options",
@@ -247,9 +319,9 @@
                 "subscribe_label": "Subscribe & Save 10%",
                 "onetime_label": "One Time Purchase",
                 "badge_text": "Best Value",
-                "benefit_1": "Save 10% on every order",
-                "benefit_2": "Skip, swap, or cancel anytime",
-                "benefit_3": "Free shipping on orders over $35"
+                "benefit_1": "Eco-effective cleaning essentials",
+                "benefit_2": "Delivered to your doorstep",
+                "benefit_3": "Flexible - Pause, skip, or cancel anytime"
               },
               "blocks": {}
             },
@@ -266,12 +338,12 @@
           },
           "block_order": [
             "group_icgrde",
-            "divider_VJhene",
             "variant_picker_R3rGDr",
+            "price_tVjtKg",
             "purchase_options_hero",
             "buy_buttons_eYQEYi",
             "shipping_banner_hero",
-            "text_aEtTtq",
+            "accordion_dropps",
             "product_addon_hero"
           ]
         },
@@ -292,7 +364,7 @@
         "desktop_media_position": "left",
         "equal_columns": false,
         "limit_details_width": false,
-        "gap": 48,
+        "gap": 32,
         "padding-block-start": 0,
         "padding-block-end": 0
       }

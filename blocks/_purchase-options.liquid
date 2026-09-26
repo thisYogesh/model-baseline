@@ -1,0 +1,194 @@
+{% liquid
+  assign product = closest.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+
+  assign selected_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id
+
+  assign has_selling_plans = false
+  if product.selling_plan_groups.size > 0 and selected_variant.selling_plan_allocations.size > 0
+    assign has_selling_plans = true
+    assign default_allocation = selected_variant.selling_plan_allocations.first
+    assign subscribe_price = default_allocation.price
+  endif
+
+  assign onetime_price = selected_variant.price
+%}
+
+{% if product != blank %}
+  <purchase-options-component
+    class="purchase-options"
+    data-form-id="{{ product_form_id }}"
+    data-subscribe-price="{{ subscribe_price | money }}"
+    data-onetime-price="{{ onetime_price | money }}"
+    {{ block.shopify_attributes }}
+  >
+    {% if has_selling_plans %}
+      <div
+        class="purchase-options__card purchase-options__card--subscribe"
+        data-selected="true"
+        ref="subscribeCard"
+      >
+        {% if block.settings.badge_text != blank %}
+          <span class="purchase-options__badge">{{ block.settings.badge_text }}</span>
+        {% endif %}
+
+        <div class="purchase-options__header">
+          <label class="purchase-options__radio-label">
+            <input
+              type="radio"
+              class="purchase-options__radio-input"
+              name="purchase-option-{{ block.id }}"
+              value="subscribe"
+              checked
+              ref="subscribeRadio"
+              on:change="/handleOptionChange"
+            >
+            <span class="purchase-options__radio-circle"></span>
+            <span class="purchase-options__option-label purchase-options__option-label--strong">
+              {{- block.settings.subscribe_label -}}
+            </span>
+          </label>
+          <span class="purchase-options__prices">
+            {% if subscribe_price < onetime_price %}
+              <s class="purchase-options__compare-price">{{ onetime_price | money }}</s>
+            {% endif %}
+            <span class="purchase-options__sale-price">{{ subscribe_price | money }}</span>
+          </span>
+        </div>
+
+        <ul class="purchase-options__benefits list-unstyled">
+          {% if block.settings.benefit_1 != blank %}
+            <li class="purchase-options__benefit">
+              <span class="purchase-options__benefit-icon">
+                {{- 'fi-rs-check.svg' | inline_asset_content -}}
+              </span>
+              {{ block.settings.benefit_1 }}
+            </li>
+          {% endif %}
+          {% if block.settings.benefit_2 != blank %}
+            <li class="purchase-options__benefit">
+              <span class="purchase-options__benefit-icon">
+                {{- 'fi-rs-check.svg' | inline_asset_content -}}
+              </span>
+              {{ block.settings.benefit_2 }}
+            </li>
+          {% endif %}
+          {% if block.settings.benefit_3 != blank %}
+            <li class="purchase-options__benefit">
+              <span class="purchase-options__benefit-icon">
+                {{- 'fi-rs-check.svg' | inline_asset_content -}}
+              </span>
+              {{ block.settings.benefit_3 }}
+            </li>
+          {% endif %}
+        </ul>
+
+        <div class="purchase-options__select-wrapper">
+          <select
+            class="purchase-options__select"
+            name="selling_plan"
+            form="{{ product_form_id }}"
+            aria-label="Delivery frequency"
+            ref="sellingPlanSelect"
+            on:change="/handleOptionChange"
+          >
+            {% for allocation in selected_variant.selling_plan_allocations %}
+              <option
+                value="{{ allocation.selling_plan.id }}"
+                {% if forloop.first %}
+                  selected
+                {% endif %}
+              >
+                {{ allocation.selling_plan.name }}
+              </option>
+            {% endfor %}
+          </select>
+          <span class="purchase-options__select-icon">
+            {{- 'fi-rs-angle-down.svg' | inline_asset_content -}}
+          </span>
+        </div>
+      </div>
+    {% endif %}
+
+    <div
+      class="purchase-options__card purchase-options__card--onetime"
+      data-selected="{% if has_selling_plans %}false{% else %}true{% endif %}"
+      ref="onetimeCard"
+    >
+      <div class="purchase-options__header">
+        <label class="purchase-options__radio-label">
+          <input
+            type="radio"
+            class="purchase-options__radio-input"
+            name="purchase-option-{{ block.id }}"
+            value="onetime"
+            {% unless has_selling_plans %}
+              checked
+            {% endunless %}
+            ref="onetimeRadio"
+            on:change="/handleOptionChange"
+          >
+          <span class="purchase-options__radio-circle"></span>
+          <span class="purchase-options__option-label">{{ block.settings.onetime_label }}</span>
+        </label>
+        <span class="purchase-options__prices">
+          <span class="purchase-options__onetime-price">{{ onetime_price | money }}</span>
+        </span>
+      </div>
+    </div>
+  </purchase-options-component>
+
+  <script type="module" src="{{ 'purchase-options.js' | asset_url }}"></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Purchase options",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "subscribe_label",
+      "label": "Subscription label",
+      "default": "Subscribe & Save 10%"
+    },
+    {
+      "type": "text",
+      "id": "onetime_label",
+      "label": "One-time label",
+      "default": "One Time Purchase"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Best Value"
+    },
+    {
+      "type": "header",
+      "content": "Subscription benefits"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Eco-effective cleaning essentials"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Delivered to your doorstep"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Flexible - Pause, skip, or cancel anytime"
+    }
+  ]
+}
+{% endschema %}
