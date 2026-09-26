@@ -1,0 +1,2 @@
+## Recent
+[chat] Custom element tags MUST end in `-component` (e.g. `cart-option-drawer-component`) — component.js's getClosestComponent only treats un-upgraded elements as ref-scoping boundaries when the tag ends in `-component`. Otherwise a nested element's `ref="x"` attributes leak into the parent component's refs before its module loads (race), overwriting same-named refs (caused `panel.show is not a function` in ThemeDrawer).
