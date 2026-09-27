@@ -1,0 +1,3 @@
+## Recent
+[chat] Customizer sync (`shopify theme pull templates/*`) can pull template JSON that references block types pushed to the live theme from OTHER git branches (e.g. task/pdp-hero-2). Before pushing, verify every `"type": "_x"` in template JSON has a matching `blocks/_x.liquid` locally, and cherry-pick missing files (blocks + their assets + schema additions in host sections) from the branch that owns them — never wholesale-merge, since branches also delete each other's assets.
+[chat] `_clean-ingredients-bar` block must be listed in `sections/section.liquid` schema `blocks[]` or Shopify rejects the push with "Block type not allowed in sections/section.liquid".
