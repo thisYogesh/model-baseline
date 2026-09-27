@@ -368,6 +368,331 @@
       white-space: nowrap;
     }
   }
+
+  /* --- Buybox design overrides (Figma PDP) --- */
+
+  /* Media gallery */
+  .product-information .product-media-container {
+    background-color: #f1e8da;
+  }
+
+  .product-information .slideshow-controls__thumbnails .slideshow-control {
+    border-radius: 2px;
+  }
+
+  .product-information .slideshow-controls__thumbnails .slideshow-control[aria-selected='true'] {
+    outline: none;
+    /* Figma: selected thumbnail carries a full 1.5px frame */
+    border: 1.5px solid #231f20;
+  }
+
+  /* Variant option labels ("Scent", "Count") */
+  .product-information .variant-option--buttons legend {
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.14px;
+  }
+
+  .product-information .variant-option--buttons legend .variant-option__swatch-value {
+    text-transform: none;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  /* Swatch pills (scent selector) */
+  .product-information .variant-option--buttons {
+    row-gap: 8px;
+    column-gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .product-information .variant-option__button-label--has-swatch {
+    gap: 8px;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #d1d1d4;
+    border-radius: 0;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .product-information .variant-option__button-label--has-swatch .swatch {
+    width: 24px;
+    height: 24px;
+  }
+
+  .product-information .variant-option__button-label--has-swatch:has(> input:checked) {
+    border: 2px solid #2e5525;
+    padding: 11px;
+  }
+
+  /* Count buttons (non-swatch options) */
+  .product-information .variant-option--buttons .variant-option__button-label:not(.variant-option__button-label--has-swatch) {
+    background-color: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 0;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .product-information .variant-option--buttons .variant-option__button-label:not(.variant-option__button-label--has-swatch):has(> input:checked) {
+    background-color: #14495b;
+    border: 2px solid #14495b;
+    color: #ffffff;
+    padding: 7px 9px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-information .variant-option--buttons .variant-option__button-label:not(.variant-option__button-label--has-swatch) {
+      padding: 16px;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .product-information .variant-option--buttons .variant-option__button-label:not(.variant-option__button-label--has-swatch):has(> input:checked) {
+      padding: 15px;
+    }
+  }
+
+  /* Accordion headers (Description / Ingredients / Impact) */
+  .product-information .accordion .details__header {
+    font-family: var(--font-subheading--family);
+    font-size: 24px;
+    line-height: 24px;
+    text-transform: uppercase;
+    padding-block: 16px;
+  }
+
+  .product-information .accordion .details__header .svg-wrapper {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-information .accordion .details__header {
+      font-size: 32px;
+      line-height: 32px;
+    }
+  }
+
+  /* Price: muted unit price beside the main price */
+  .product-information .product-details .unit-price {
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.14px;
+  }
+
+  /* Purchase options cards */
+  .product-information .purchase-options {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .product-information .purchase-options__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #fcf9f5;
+    border: 1px solid #9b9a9a;
+  }
+
+  .product-information .purchase-options__card[data-selected='true'] {
+    border: 1px solid #231f20;
+  }
+
+  .product-information .purchase-options__card--subscribe {
+    padding: 40px 16px 24px;
+    overflow: hidden;
+  }
+
+  .product-information .purchase-options__card--onetime {
+    padding: 20px 16px;
+  }
+
+  .product-information .purchase-options__badge {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #e9ea6b;
+    color: #231f20;
+    font-size: 10px;
+    line-height: 14px;
+    text-transform: uppercase;
+  }
+
+  .product-information .purchase-options__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .product-information .purchase-options__radio-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .product-information .purchase-options__radio-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .product-information .purchase-options__radio-circle {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 50%;
+  }
+
+  .product-information .purchase-options__radio-input:checked + .purchase-options__radio-circle {
+    border: 2px solid #231f20;
+  }
+
+  .product-information .purchase-options__radio-input:checked + .purchase-options__radio-circle::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    width: 10px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    background-color: #231f20;
+    border-radius: 50%;
+  }
+
+  .product-information .purchase-options__option-label {
+    font-size: 16px;
+    line-height: 20px;
+    color: #231f20;
+  }
+
+  .product-information .purchase-options__option-label--strong {
+    font-weight: 600;
+  }
+
+  .product-information .purchase-options__prices {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .product-information .purchase-options__compare-price {
+    color: #8f928f;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration: line-through;
+  }
+
+  .product-information .purchase-options__sale-price {
+    color: #c24829;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .product-information .purchase-options__onetime-price {
+    color: #231f20;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .product-information .purchase-options__benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .product-information .purchase-options__benefit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #656363;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .product-information .purchase-options__benefit-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+  }
+
+  .product-information .purchase-options__benefit-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .product-information .purchase-options__select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .product-information .purchase-options__select {
+    width: 100%;
+    appearance: none;
+    padding: 10px 40px 10px 16px;
+    background-color: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 0;
+    color: #231f20;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 16px;
+    cursor: pointer;
+  }
+
+  .product-information .purchase-options__select-icon {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: 16px;
+    transform: translateY(-50%);
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+
+  .product-information .purchase-options__select-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .product-information .purchase-options__card[data-selected='false'] .purchase-options__select-wrapper {
+    opacity: 0.5;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-information .purchase-options__prices {
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
