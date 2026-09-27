@@ -25,7 +25,24 @@
   {% content_for 'block', type: 'group', id: 'static-header' %}
 
   {% content_for 'block', type: '_carousel-content', id: 'static-carousel-content', closest.product: null %}
+
+  <div class="carousel-section__mobile-cta">
+    {% content_for 'block', type: 'button', id: 'static-mobile-cta' %}
+  </div>
 </div>
+
+{% stylesheet %}
+  .carousel-section__mobile-cta {
+    display: none;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .carousel-section__mobile-cta {
+      display: block;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

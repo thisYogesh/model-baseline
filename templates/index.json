@@ -355,6 +355,290 @@
         "padding-block-end": 0
       }
     },
+    "community_carousel": {
+      "type": "carousel",
+      "settings": {
+        "columns": 4,
+        "mobile_columns": "1",
+        "section_width": "page-width",
+        "columns_gap": 10,
+        "background_color": "#FCF9F5",
+        "icons_style": "none",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "static-header": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "gap": 10,
+            "width": "fill",
+            "padding-block-end": 16
+          },
+          "blocks": {
+            "heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Join the community @dropps</p>",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "3.5rem",
+                "line_height": "tight",
+                "case": "uppercase",
+                "text_color": "#231F20",
+                "width": "fit-content"
+              }
+            },
+            "cta_button": {
+              "type": "button",
+              "settings": {
+                "label": "Shop Best Sellers",
+                "link": "shopify://collections/all",
+                "style_class": "button-custom",
+                "custom_button_background": "#9BD7D7",
+                "custom_button_text": "#231F20",
+                "custom_button_border": "#9BD7D7",
+                "width": "fit-content"
+              }
+            }
+          },
+          "block_order": ["heading", "cta_button"]
+        },
+        "static-carousel-content": {
+          "type": "_carousel-content",
+          "static": true,
+          "settings": {
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": {
+            "card_1": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify://shop_images/582540b5b8bea1e3bc010a2fbf5648a2-1-mobile-9916855.jpg",
+                "background_image_position": "cover",
+                "aspect_ratio": "portrait"
+              }
+            },
+            "card_2": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify://shop_images/screenshot-2026-05-28-at-8-01-39-am-1-mobile-9916858.png",
+                "background_image_position": "cover",
+                "aspect_ratio": "portrait"
+              }
+            },
+            "card_3": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify://shop_images/screenshot-2026-07-03-at-5-35-54-pm-1-mobile-9916860.png",
+                "background_image_position": "cover",
+                "content_direction": "column",
+                "vertical_alignment_flex_direction_column": "flex-end",
+                "gap": 0
+              },
+              "blocks": {
+                "info_group": {
+                  "type": "group",
+                  "settings": {
+                    "background_color": "#482B73",
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "gap": 6,
+                    "width": "fill",
+                    "padding-block-start": 16,
+                    "padding-block-end": 16,
+                    "padding-inline-start": 14,
+                    "padding-inline-end": 14,
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_color": "#231F20"
+                  },
+                  "blocks": {
+                    "product_title": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Odor & Stain Laundry Detergent</p>",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "2rem",
+                        "line_height": "tight",
+                        "letter_spacing": "tight",
+                        "text_color": "#F4C9E3"
+                      }
+                    },
+                    "shop_now_btn": {
+                      "type": "button",
+                      "settings": {
+                        "label": "Shop Now",
+                        "style_class": "button-unstyled",
+                        "link_text_color": "#F4C9E3",
+                        "width": "fit-content"
+                      }
+                    }
+                  },
+                  "block_order": ["product_title", "shop_now_btn"]
+                }
+              },
+              "block_order": ["info_group"]
+            },
+            "card_4": {
+              "type": "_card",
+              "settings": {
+                "background_color": "#C24829",
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12
+              },
+              "blocks": {
+                "promo_text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>When you need extra cleansing</p>",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "2rem",
+                    "line_height": "tight",
+                    "letter_spacing": "tight",
+                    "alignment": "center",
+                    "text_color": "#FEF27F"
+                  }
+                },
+                "promo_image": {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/artboard-1-9-mobile-9916872.png",
+                    "image_ratio": "adapt",
+                    "width": "fit-content"
+                  }
+                },
+                "promo_cta": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Shop Laundry Pods",
+                    "style_class": "button-unstyled",
+                    "link_text_color": "#E9EA6B",
+                    "width": "fit-content"
+                  }
+                }
+              },
+              "block_order": ["promo_text", "promo_image", "promo_cta"]
+            },
+            "card_5": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify://shop_images/dts-bloom-pointless-agency-photos-id14763-1-mobile-63830669.png",
+                "background_image_position": "cover",
+                "aspect_ratio": "portrait"
+              }
+            },
+            "card_6": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify://shop_images/dts-bloom-pointless-agency-photos-id14763-1-mobile-63830693.png",
+                "background_image_position": "cover",
+                "aspect_ratio": "portrait"
+              }
+            },
+            "card_7": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "gap": 0
+              },
+              "blocks": {
+                "top_group": {
+                  "type": "group",
+                  "settings": {
+                    "background_media": "image",
+                    "background_image": "shopify://shop_images/dts-bloom-pointless-agency-photos-id14763-1-mobile-9916876.jpg",
+                    "background_image_position": "cover",
+                    "height": "fill",
+                    "width": "fill"
+                  }
+                },
+                "bottom_group": {
+                  "type": "group",
+                  "settings": {
+                    "background_color": "#F5CE3E",
+                    "height": "fill",
+                    "width": "fill",
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "center",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "gap": 0,
+                    "padding-block-start": 16,
+                    "padding-block-end": 16,
+                    "padding-inline-start": 14,
+                    "padding-inline-end": 14
+                  },
+                  "blocks": {
+                    "zero_pct": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>0%</p>",
+                        "type_preset": "custom",
+                        "font": "var(--font-heading--family)",
+                        "font_size": "3.5rem",
+                        "line_height": "tight",
+                        "case": "uppercase",
+                        "alignment": "center",
+                        "text_color": "#231F20"
+                      }
+                    },
+                    "toxins_text": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Toxins & Dyes</p>",
+                        "type_preset": "custom",
+                        "font": "var(--font-heading--family)",
+                        "font_size": "3rem",
+                        "line_height": "tight",
+                        "case": "uppercase",
+                        "alignment": "center",
+                        "text_color": "#231F20"
+                      }
+                    }
+                  },
+                  "block_order": ["zero_pct", "toxins_text"]
+                }
+              },
+              "block_order": ["top_group", "bottom_group"]
+            }
+          },
+          "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5", "card_6", "card_7"]
+        },
+        "static-mobile-cta": {
+          "type": "button",
+          "static": true,
+          "settings": {
+            "label": "Shop Best Sellers",
+            "link": "shopify://collections/all",
+            "style_class": "button-custom",
+            "custom_button_background": "#9BD7D7",
+            "custom_button_text": "#231F20",
+            "custom_button_border": "#9BD7D7",
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "custom",
+            "custom_width_mobile": 100
+          }
+        }
+      }
+    },
     "certifications_Rk3xPa": {
       "type": "section",
       "settings": {
@@ -565,6 +849,7 @@
     "hero_jVaWmY",
     "product_list_fa6P9H",
     "editorial_brand_story",
-    "certifications_Rk3xPa"
+    "certifications_Rk3xPa",
+    "community_carousel"
   ]
 }
