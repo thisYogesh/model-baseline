@@ -12,20 +12,39 @@
     "main": {
       "type": "product-information",
       "blocks": {
+        "disclosures": {
+          "type": "disclosures",
+          "settings": {
+            "heading": "Disclosures",
+            "heading_preset": "h4",
+            "open_by_default": false,
+            "icon": "caret",
+            "disclosure_heading_preset": "h5",
+            "text_color": "",
+            "dividers": true,
+            "divider_color": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "media-gallery": {
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
+            "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
             "icons_style": "arrow",
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 72,
+            "thumbnail_radius": 2,
+            "aspect_ratio": "1",
             "constrain_to_viewport": true,
             "media_fit": "contain",
             "media_radius": 0,
@@ -53,11 +72,13 @@
             "gap": 28,
             "sticky_details_desktop": true,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 24,
             "padding-block-end": 24,
@@ -84,6 +105,7 @@
                 "height": "fit",
                 "custom_height": 100,
                 "background_media": "none",
+                "background_color": "",
                 "video_position": "cover",
                 "background_image_position": "cover",
                 "toggle_overlay": false,
@@ -93,6 +115,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "link": "",
                 "open_in_new_tab": false,
@@ -111,13 +134,14 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-heading--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "tight",
+                    "letter_spacing": "tight",
                     "case": "none",
                     "wrap": "pretty",
+                    "text_color": "",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -128,51 +152,64 @@
                   },
                   "blocks": {}
                 },
-                "price_tVjtKg": {
-                  "type": "price",
+                "text_subtitle_dropps": {
+                  "type": "text",
                   "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": true,
-                    "show_tax_info": true,
-                    "type_preset": "paragraph",
+                    "text": "<p>Banishes odors and lifts set-in stains, even in cold water.</p>",
                     "width": "100%",
+                    "max_width": "normal",
                     "alignment": "left",
+                    "type_preset": "custom",
                     "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
+                    "font_size": "0.875rem",
+                    "line_height": "tight",
                     "letter_spacing": "normal",
-                    "case": "none",
-                    "padding-block-start": 4,
+                    "case": "uppercase",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "review_dropps": {
+                  "type": "review",
+                  "settings": {
+                    "stars_style": "shaded",
+                    "show_number": true,
+                    "text_color": "",
+                    "type_preset": "paragraph",
+                    "width": "100%",
+                    "alignment": "left"
                   },
                   "blocks": {}
                 }
               },
               "block_order": [
                 "text_xpVMaM",
-                "price_tVjtKg"
+                "text_subtitle_dropps",
+                "review_dropps"
               ]
-            },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color3 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
-                "show_swatches": false,
+                "show_swatches": true,
+                "option_label_text_color": "",
+                "variant_style_class": "default",
+                "custom_variant_background": "{{ settings.color_palette.background }}",
+                "custom_variant_text": "{{ settings.color_palette.foreground }}",
+                "custom_variant_border": "{{ settings.color_palette.foreground }}",
+                "selected_variant_style_class": "default",
+                "custom_selected_variant_background": "{{ settings.color_palette.foreground }}",
+                "custom_selected_variant_text": "{{ settings.color_palette.background }}",
+                "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -181,12 +218,61 @@
               },
               "blocks": {}
             },
+            "price_tVjtKg": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "custom",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-heading--family)",
+                "font_size": "2.5rem",
+                "line_height": "tight",
+                "letter_spacing": "tight",
+                "case": "none",
+                "text_color": "",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "purchase_options_hero": {
+              "type": "_purchase-options",
+              "settings": {
+                "subscribe_label": "Subscribe & Save 10%",
+                "onetime_label": "One Time Purchase",
+                "badge_text": "Best Value",
+                "benefit_1": "Eco-effective cleaning essentials",
+                "benefit_2": "Delivered to your doorstep",
+                "benefit_3": "Flexible - Pause, skip, or cancel anytime"
+              },
+              "blocks": {}
+            },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
                 "stacking": true,
+                "text_color": "",
                 "show_pickup_availability": false,
                 "gift_card_form": true,
+                "recipient_button_style": "default",
+                "recipient_button_background": "{{ settings.color_palette.background }}",
+                "recipient_button_text": "{{ settings.color_palette.foreground }}",
+                "recipient_button_border": "{{ settings.color_palette.foreground }}",
+                "selected_recipient_button_style": "default",
+                "selected_recipient_button_background": "{{ settings.color_palette.foreground }}",
+                "selected_recipient_button_text": "{{ settings.color_palette.background }}",
+                "selected_recipient_button_border": "{{ settings.color_palette.foreground }}",
+                "input_style": "default",
+                "input_background_color": "{{ settings.color_palette.background }}",
+                "input_text_color": "{{ settings.color_palette.foreground }}",
+                "input_border_color": "{{ settings.color_palette.foreground }}",
+                "border_width": 1,
+                "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -196,14 +282,24 @@
                 "quantity": {
                   "type": "quantity",
                   "static": true,
-                  "settings": {},
+                  "settings": {
+                    "input_style": "default",
+                    "input_background_color": "{{ settings.color_palette.background }}",
+                    "input_text_color": "{{ settings.color_palette.foreground }}",
+                    "input_border_color": "{{ settings.color_palette.foreground }}",
+                    "border_width": 1,
+                    "border_radius": 0
+                  },
                   "blocks": {}
                 },
                 "add-to-cart": {
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button"
+                    "style_class": "button",
+                    "custom_button_background": "{{ settings.color_palette.foreground }}",
+                    "custom_button_text": "{{ settings.color_palette.background }}",
+                    "custom_button_border": "{{ settings.color_palette.background }}"
                   },
                   "blocks": {}
                 },
@@ -216,47 +312,178 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
+            "shipping_banner_hero": {
+              "type": "_shipping-banner",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "text_1": "Free Shipping Over $35",
+                "text_2": "30 Day Money-Back Guarantee"
+              },
+              "blocks": {}
+            },
+            "accordion_dropps": {
+              "type": "accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "divider_color": "",
+                "type_preset": "h4",
+                "background_color": "",
+                "text_color": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_description": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Description",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_description": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.description }}",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_description"
+                  ]
+                },
+                "accordion_row_ingredients": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Ingredients",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_ingredients": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Made with plant and mineral-based ingredients. See packaging for the full ingredient list.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_ingredients"
+                  ]
+                },
+                "accordion_row_impact": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Impact",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_impact": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Low-waste packaging, cruelty-free formulas, and carbon-neutral shipping. Learn more about our impact.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_impact"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_description",
+                "accordion_row_ingredients",
+                "accordion_row_impact"
+              ]
+            },
+            "product_addon_hero": {
+              "type": "_product-addon",
+              "settings": {
+                "heading": "Popular Add-on",
+                "product": "leather-anchor",
+                "button_prefix": "Add to Cart"
               },
               "blocks": {}
             }
           },
           "block_order": [
             "group_icgrde",
-            "divider_VJhene",
             "variant_picker_R3rGDr",
+            "price_tVjtKg",
+            "purchase_options_hero",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "shipping_banner_hero",
+            "accordion_dropps",
+            "product_addon_hero"
           ]
-        },
-        "disclosures": {
-          "type": "disclosures",
-          "settings": {
-            "padding-block-start": 0,
-            "padding-block-end": 0
-          },
-          "blocks": {}
         }
       },
       "block_order": [
@@ -267,28 +494,15 @@
         "desktop_media_position": "left",
         "equal_columns": false,
         "limit_details_width": false,
-        "gap": 48,
+        "gap": 32,
+        "enable_sticky_add_to_cart": true,
+        "background_color": "",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
     },
     "how_we_compare_xK7mPq": {
       "type": "how-we-compare",
-      "settings": {
-        "heading": "How We Compare",
-        "format_label": "Format",
-        "feature_1_label": "Superior Cleaning 1",
-        "feature_2_label": "Gentle for both eczema and psoriasis*",
-        "feature_3_label": "USDA Certified Biobased & Leaping Bunny Certified",
-        "feature_4_label": "Certified B Corp",
-        "feature_5_label": "No skin contact during handling",
-        "feature_6_label": "Curbside-recyclable paperboard & packaging",
-        "feature_7_label": "Formulated & manufactured in the USA",
-        "footnote": "\u2020 Better stain removal on the most consumer-relevant stains. * Applies to Sensitive Skin and Free + Clear Unscented Laundry Detergents. Recognized by the National Eczema Association and National Psoriasis Foundation. \u00b6 Requires both USDA Certified Biobased Product and Leaping Bunny Cruelty-free certification to receive a checkmark. \u2021 Tablets, powders, and sheets require direct hand contact with formula at time of use. Dropps pod film dissolves completely in the wash cycle \u2014 formula never contacts skin during handling. \u00a7 Some competitor packaging is industrially compostable, which requires composting facility access \u2014 not curbside recyclable. Certification and manufacturing data sourced from brand websites, June 2026.",
-        "background_color": "#FCF9F5",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
       "blocks": {
         "competitor_dropps": {
           "type": "competitor",
@@ -327,6 +541,7 @@
         "competitor_seventh_gen": {
           "type": "competitor",
           "settings": {
+            "logo_asset": "",
             "logo": "shopify://shop_images/seventh-generation-1-mobile-52628908.png",
             "brand_name": "Seventh Generation",
             "format_text": "Powder Pod",
@@ -344,6 +559,7 @@
         "competitor_mollys": {
           "type": "competitor",
           "settings": {
+            "logo_asset": "",
             "logo": "shopify://shop_images/ms-logo-transparent-220x-2x-bfc196b7-d70e-4285-b0be-b06ec38c233b-1-mobile-52628920.png",
             "brand_name": "Molly's Suds",
             "format_text": "Powder Pod",
@@ -361,6 +577,7 @@
         "competitor_cascade": {
           "type": "competitor",
           "settings": {
+            "logo_asset": "",
             "logo": "shopify://shop_images/logo-1-mobile-52628932.png",
             "brand_name": "Cascade",
             "format_text": "Liquid & Powder Pod",
@@ -378,6 +595,7 @@
         "competitor_finish": {
           "type": "competitor",
           "settings": {
+            "logo_asset": "",
             "logo": "shopify://shop_images/main-logo-1-mobile-52628944.png",
             "brand_name": "Finish",
             "format_text": "Liquid & Powder Pod",
@@ -395,6 +613,7 @@
         "competitor_method": {
           "type": "competitor",
           "settings": {
+            "logo_asset": "",
             "logo": "shopify://shop_images/61x-sktjoal-ac-sf462-108-1-mobile-52628956.png",
             "brand_name": "Method",
             "format_text": "Tablet",
@@ -418,7 +637,83 @@
         "competitor_cascade",
         "competitor_finish",
         "competitor_method"
-      ]
+      ],
+      "settings": {
+        "heading": "How We Compare",
+        "format_label": "Format",
+        "feature_1_label": "Superior Cleaning 1",
+        "feature_2_label": "Gentle for both eczema and psoriasis*",
+        "feature_3_label": "USDA Certified Biobased & Leaping Bunny Certified",
+        "feature_4_label": "Certified B Corp",
+        "feature_5_label": "No skin contact during handling",
+        "feature_6_label": "Curbside-recyclable paperboard & packaging",
+        "feature_7_label": "Formulated & manufactured in the USA",
+        "footnote": "† Better stain removal on the most consumer-relevant stains. * Applies to Sensitive Skin and Free + Clear Unscented Laundry Detergents. Recognized by the National Eczema Association and National Psoriasis Foundation. ¶ Requires both USDA Certified Biobased Product and Leaping Bunny Cruelty-free certification to receive a checkmark. ‡ Tablets, powders, and sheets require direct hand contact with formula at time of use. Dropps pod film dissolves completely in the wash cycle — formula never contacts skin during handling. § Some competitor packaging is industrially compostable, which requires composting facility access — not curbside recyclable. Certification and manufacturing data sourced from brand websites, June 2026.",
+        "background_color": "#fcf9f5",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "clean_ingredients_bar_rT4mWq": {
+      "type": "section",
+      "blocks": {
+        "ingredients_content_xY7zAb": {
+          "type": "_clean-ingredients-bar",
+          "settings": {
+            "heading": "Our Formula",
+            "background_color": "#e9ea6b",
+            "cta_label": "View all ingredients",
+            "row_1_label": "Biobased",
+            "row_1_description": "USDA Certified Biobased with 58% derived from renewable resources.",
+            "row_2_label": "Pod Film",
+            "row_2_description": "Water-soluble PVOH that dissolves and biodegrades.",
+            "row_3_label": "Made With",
+            "row_3_description": "Five specialized enzymes and three surfactants, each with a dirty job.",
+            "row_4_label": "Never Made With",
+            "row_4_description": "No Phosphates\nNo Dyes\nNo Chlorine\nNo Parabens\nNo SLS (Sodium Lauryl Sulfate)",
+            "badge_1_label": "B Corp Certified",
+            "badge_2_image": "shopify://shop_images/img-3664-2-1-mobile-5978318.png",
+            "badge_2_label": "Leaping Bunny",
+            "badge_3_image": "shopify://shop_images/epa-badge-white-2-mobile-5978314.png",
+            "badge_3_label": "EPA Safer Choice",
+            "padding-block-start": 0,
+            "padding-block-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ingredients_content_xY7zAb"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "image",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image": "shopify://shop_images/clean-ingredients-bar-mobile-52628791.jpg",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
     },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
@@ -438,6 +733,7 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
+            "text_color": "",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -454,9 +750,11 @@
           "static": true,
           "settings": {
             "product_card_gap": 8,
+            "background_color": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 8,
@@ -472,6 +770,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -494,6 +793,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -518,6 +818,7 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "text_color": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -551,6 +852,7 @@
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 28,
+        "background_color": "",
         "padding-block-start": 48,
         "padding-block-end": 48
       }
@@ -559,6 +861,7 @@
   "order": [
     "main",
     "how_we_compare_xK7mPq",
+    "clean_ingredients_bar_rT4mWq",
     "product_recommendations_qggXJq"
   ]
 }
